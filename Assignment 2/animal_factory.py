@@ -1,4 +1,5 @@
 import abc
+from animal import Animal
 
 class AnimalFactory(abc.Abc):
     @staticmethod
@@ -7,7 +8,23 @@ class AnimalFactory(abc.Abc):
 
 class SkeletonFactory(AnimalFactory):
     @staticmethod
-    def create(glow, **kwargs):
+    def create(**kwargs):
         yarn = "Acrylic Yarn"
-        glow_in_dark = glow
-        #return Skeleton()
+        glow_in_dark = True
+        #return Animal(yarn, glow_in_dark)
+
+class Reindeer(AnimalFactory):
+    @staticmethod
+    def create(**kwargs):
+        stuffing = "Wool"
+        fabric = "Cotton"
+        glow = True
+        #return Animal(stuffing, fabric, glow)
+
+class Bunny(AnimalFactory):
+    @staticmethod
+    def create(col, **kwargs):
+        stuffing = "Polyester Fiberfill"
+        fabric = "Linen"
+        colours = col
+        #return Animal(stuffing, fabric, colours)

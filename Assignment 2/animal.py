@@ -1,5 +1,5 @@
 
-class StuffedAnimal:
+class Animal:
     def __init__(self, stuffing, size, fabric, name, desc, prod_id):
         self._stuffing = stuffing
         self._size = size

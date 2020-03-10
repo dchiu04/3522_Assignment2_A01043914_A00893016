@@ -1,5 +1,7 @@
 import abc
 
+from toy import Toy
+
 
 class ToyFactory(abc.Abc):
     @staticmethod
@@ -8,19 +10,29 @@ class ToyFactory(abc.Abc):
 
 
 class SantaFactory(ToyFactory):
-
     @staticmethod
     def create(width, height, num_rooms, **kwargs):
-        pass
+        battery = False
+        w = width
+        h = height
+        rooms = num_rooms
+        #return Toy(battery, w, h, rooms)
 
 
 class RCSpider(ToyFactory):
     @staticmethod
     def create(speed, jump, glow, spider_type, **kwargs):
-        pass
+        sp = speed
+        j_height = jump
+        g = glow
+        sp_type = spider_type
+        #return Toy(sp, j_height, g, sp_type)
 
 
 class RobotBunny(ToyFactory):
     @staticmethod
     def create(num_effects, color, **kwargs):
-        pass
+        battery = True
+        sound = num_effects
+        col = color
+        #return Toy(battery, sound, col)

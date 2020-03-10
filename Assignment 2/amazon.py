@@ -1,4 +1,4 @@
-class ToyStore:
+class Amazon:
     def __init__(self):
         self._inventory = []
 
@@ -10,7 +10,7 @@ class ToyStore:
 
 
 def menu(self):
-    user = int(input("----Toy Store Menu----\n1)Process Web Orders"
+    user = int(input("----Amazon Menu----\n1)Process Web Orders"
                      "\n2)Check Inventory\n3)Exit\n"))
     if user == 1:
         self.process_orders()
@@ -22,8 +22,8 @@ def menu(self):
 
 
 def main():
-    ts = ToyStore()
-    menu(ts)
+    store = Amazon()
+    menu(store)
 
 
 if __name__ == '__main__':

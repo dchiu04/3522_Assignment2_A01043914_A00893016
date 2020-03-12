@@ -13,7 +13,7 @@ class SkeletonFactory(AnimalFactory):
         glow_in_dark = True
         #return Animal(yarn, glow_in_dark)
 
-class Reindeer(AnimalFactory):
+class ReindeerFactory(AnimalFactory):
     @staticmethod
     def create(**kwargs):
         stuffing = "Wool"
@@ -21,7 +21,7 @@ class Reindeer(AnimalFactory):
         glow = True
         #return Animal(stuffing, fabric, glow)
 
-class Bunny(AnimalFactory):
+class BunnyFactory(AnimalFactory):
     @staticmethod
     def create(col, **kwargs):
         stuffing = "Polyester Fiberfill"

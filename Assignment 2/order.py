@@ -32,6 +32,12 @@ class Order:
         return self._factory
 
     def __str__(self):
-        return "Order: {}, Item {}, Product ID {}, Name ""{}"", Quantity {}" \
-            .format(self.order(), self.type(), self.prod_id(),
-                    self.name(), 100)
+        # return "Order: {}, Item {}, Product ID {}, Name ""{}"", Quantity {}" \
+        #     .format(self.order(), self.type(), self.prod_id(),
+        #             self.name(), 100)
+        return  f"---- Order: {self.order} ----\n" \
+                f"Item: {self.type}\n" \
+                f"Product ID: {self.prod_id}\n" \
+                f"Name: {self.name}\n" \
+                f"Details: {self._prod_details}"
+

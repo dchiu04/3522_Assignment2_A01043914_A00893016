@@ -7,7 +7,7 @@ class CandyFactory(abc.Abc):
         pass
 
 
-class PumpkinToffee(CandyFactory):
+class PumpkinToffeeFactory(CandyFactory):
     @staticmethod
     def create(**kwargs):
         theme = "Halloween"
@@ -16,7 +16,7 @@ class PumpkinToffee(CandyFactory):
         #return Candy(theme, lactose, nuts)
 
 
-class CandyCane(CandyFactory):
+class CandyCaneFactory(CandyFactory):
     @staticmethod
     def create(**kwargs):
         theme = "Christmas"
@@ -25,7 +25,7 @@ class CandyCane(CandyFactory):
         #return Candy(theme, lactose, nuts)
 
 
-class CremeEggs(CandyFactory):
+class CremeEggsFactory(CandyFactory):
     @staticmethod
     def create(**kwargs):
         theme = "Easter"

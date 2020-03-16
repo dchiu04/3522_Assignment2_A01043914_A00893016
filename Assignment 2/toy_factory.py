@@ -19,18 +19,18 @@ class SantaFactory(ToyFactory):
 
 class RCSpiderFactory(ToyFactory):
     @staticmethod
-    def create(speed, jump, glow, spider_type, **kwargs):
+    def create(speed, jump_height, has_glow, spider_type, **kwargs):
         sp = speed
-        j_height = jump
-        g = glow
+        j_height = jump_height
+        g = has_glow
         sp_type = spider_type
         return Toy(sp, j_height, g, sp_type, **kwargs)
 
 
 class RobotBunnyFactory(ToyFactory):
     @staticmethod
-    def create(num_effects, color, **kwargs):
+    def create(num_sound, colour, **kwargs):
         battery = True
-        sound = num_effects
-        col = color
+        sound = num_sound
+        col = colour
         return Toy(battery, sound, col, **kwargs)

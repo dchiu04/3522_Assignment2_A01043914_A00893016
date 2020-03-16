@@ -1,34 +1,36 @@
 import abc
 from candy import Candy
 
+
 class CandyFactory(abc.ABC):
     @staticmethod
-    def create():
+    def create(has_nuts, has_lactose, name, description, product_id):
         pass
 
 
 class PumpkinToffeeFactory(CandyFactory):
     @staticmethod
-    def create(**kwargs):
+    def create(has_lactose, has_nuts, **kwargs):
         theme = "Halloween"
-        lactose = False
-        nuts = True
+        lactose = has_lactose
+        nuts = has_nuts
         return Candy(theme, lactose, nuts, **kwargs)
 
 
 class CandyCaneFactory(CandyFactory):
     @staticmethod
-    def create(**kwargs):
+    def create(has_lactose, has_nuts, **kwargs):
         theme = "Christmas"
-        lactose = False
-        nuts = False
+        lactose = has_lactose
+        nuts = has_nuts
         return Candy(theme, lactose, nuts, **kwargs)
 
 
 class CremeEggsFactory(CandyFactory):
     @staticmethod
-    def create(**kwargs):
+    def create(has_lactose, has_nuts, size, **kwargs):
         theme = "Easter"
-        number = 1
-        return Candy(theme, number, **kwargs)
-
+        lactose = has_lactose
+        nuts = has_nuts
+        number = size
+        return Candy(theme, lactose, nuts, number, **kwargs)

@@ -4,31 +4,32 @@ from animal import Animal
 class AnimalFactory(abc.ABC):
 
     @staticmethod
-    def create(stuffing, size, fabric, name, desc, prod_id):
+    def create(stuffing, size, fabric, name, desc, product_id):
         pass
 
 
 class SkeletonFactory(AnimalFactory):
     @staticmethod
-    def create(**kwargs):
-        yarn = "Acrylic Yarn"
-        glow_in_dark = True
-        return Animal(yarn, glow_in_dark, **kwargs)
+    def create(fabric, stuffing, has_glow, **kwargs):
+        yarn = fabric
+        stuff = stuffing
+        glow_in_dark = has_glow
+        return Animal(yarn, stuff, glow_in_dark, **kwargs)
 
 
 class ReindeerFactory(AnimalFactory):
     @staticmethod
-    def create(**kwargs):
-        stuffing = "Wool"
-        fabric = "Cotton"
-        glow = True
-        return Animal(stuffing, fabric, glow, **kwargs)
+    def create(fabric, stuffing, has_glow, **kwargs):
+        stuff = stuffing
+        yarn = fabric
+        glow = has_glow
+        return Animal(yarn, stuff, glow, **kwargs)
 
 
 class BunnyFactory(AnimalFactory):
     @staticmethod
-    def create(col, **kwargs):
-        stuffing = "Polyester Fiberfill"
-        fabric = "Linen"
-        colours = col
+    def create(fabric, stuffing, colour, **kwargs):
+        stuff = stuffing
+        yarn = fabric
+        colours = colour
         return Animal(stuffing, fabric, colours, **kwargs)

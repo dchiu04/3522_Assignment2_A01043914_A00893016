@@ -11,12 +11,10 @@ class ToyFactory(abc.ABC):
 
 class SantaFactory(ToyFactory):
     @staticmethod
-    def create(width, height, num_rooms, **kwargs):
-        battery = False
-        w = width
-        h = height
+    def create(dimensions, num_rooms, **kwargs):
+        d = dimensions
         rooms = num_rooms
-        return Toy(battery, w, h, rooms, **kwargs)
+        return Toy(d, rooms, **kwargs)
 
 
 class RCSpiderFactory(ToyFactory):

@@ -7,7 +7,6 @@ from candy_factory import CandyCaneFactory, CremeEggsFactory, PumpkinToffeeFacto
 from toy_factory import SantaFactory, RobotBunnyFactory, RCSpiderFactory
 from order import Order
 
-
 factory_dict = {"Toy": {"Christmas": SantaFactory, "Easter": RobotBunnyFactory, "Halloween": RCSpiderFactory},
                 "StuffedAnimal": {"Christmas": ReindeerFactory, "Easter": BunnyFactory, "Halloween": SkeletonFactory},
                 "Candy": {"Christmas": CandyCaneFactory, "Easter": CremeEggsFactory, "Halloween": PumpkinToffeeFactory}}
@@ -41,10 +40,22 @@ class OrderProcessor:
         # print(factory)
         order._factory = factory
 
+
 def main():
     orders = OrderProcessor.read_file_to_orders("orders.xlsx")
-    # for i in orders:
-    #     i.factory.create()
+
+    for i in orders:
+        print(i.details['has_batteries'])
+        i.factory.create(**{'has_batteries': i.details['has_batteries'],
+                            'min_age': i.details['min_age'],
+                            'dimensions': i.details['dimensions'],
+                            'num_rooms': i.details['num_rooms'],
+                            'has_batteries': i.details['has_batteries'],
+                            'has_batteries': i.details['has_batteries'],
+                            'has_batteries': i.details['has_batteries'],
+                            'has_batteries': i.details['has_batteries'],
+                            'has_batteries': i.details['has_batteries']
+                            })
     # OrderProcessor.factory_mapping(OrderProcessor)
 
 

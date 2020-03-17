@@ -1,29 +1,45 @@
+import abc
 
-class Toy:
-    def __init__(self, has_batteries, min_age, name, desc, prod_id):
-        self._has_batteries = has_batteries
-        self._min_age = min_age
-        self._name = name
-        self._desc = desc
-        self._prod_id = prod_id
 
-    @property
-    def has_batteries(self):
-        return self._has_batteries
+class Toy(abc.ABC):
+    def _init_(self, battery, min_age, name, desc, prod_id):
+        self.battery = battery
+        self.min_age = min_age
+        self.name = name
+        self.desc = desc
+        self.prod_id = prod_id
 
-    @property
-    def min_age(self):
-        return self._min_age
 
-    @property
-    def name(self):
-        return self._name
+class SantaWorkshop(Toy):
+    def _init_(self, dimensions, num_rooms, **kwargs):
+        super()._init_(kwargs.get("battery"),
+                       kwargs.get("min_age"),
+                       kwargs.get("name"),
+                       kwargs.get("desc"),
+                       kwargs.get("prod_id"))
+        self.dimensions = dimensions
+        self.num_rooms = num_rooms
 
-    @property
-    def desc(self):
-        return self._desc
 
-    @property
-    def prod_id(self):
-        return self._prod_id
+class Spider(Toy):
+    def _init_(self, speed, jump, glow, species, **kwargs):
+        super()._init_(kwargs.get("battery"),
+                       kwargs.get("min_age"),
+                       kwargs.get("name"),
+                       kwargs.get("desc"),
+                       kwargs.get("prod_id"))
+        self.speed = speed
+        self.jump = jump
+        self.glow = glow
+        self.species = species
 
+
+class RobotBunny(Toy):
+    def _init_(self, num_sound_effect, color, **kwargs):
+        super()._init_(kwargs.get("battery"),
+                       kwargs.get("min_age"),
+                       kwargs.get("name"),
+                       kwargs.get("desc"),
+                       kwargs.get("prod_id"))
+        self.num_sound_effect = num_sound_effect
+        self.color = color

@@ -1,7 +1,7 @@
 import abc
 from candy import Candy
 
-class CandyFactory(abc.Abc):
+class CandyFactory(abc.ABC):
     @staticmethod
     def create():
         pass

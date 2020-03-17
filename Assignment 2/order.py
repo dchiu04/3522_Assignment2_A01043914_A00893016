@@ -1,11 +1,11 @@
 class Order:
-    def __init__(self, order_num, prod_id, item_type, name, prod_details, factory):
+
+    def __init__(self, order_num, prod_id, item_type, name, prod_details):
         self._order_num = order_num
         self._prod_id = prod_id
         self._item_type = item_type
         self._name = name
         self._prod_details = prod_details
-        self._factory = factory
 
     @property
     def order(self):
@@ -35,9 +35,9 @@ class Order:
         # return "Order: {}, Item {}, Product ID {}, Name ""{}"", Quantity {}" \
         #     .format(self.order(), self.type(), self.prod_id(),
         #             self.name(), 100)
-        return  f"---- Order: {self.order} ----\n" \
-                f"Item: {self.type}\n" \
-                f"Product ID: {self.prod_id}\n" \
-                f"Name: {self.name}\n" \
-                f"Details: {self._prod_details}\n"
 
+        return f"---- Order: {self.order} ----\n" \
+               f"Item: {self.type}\n" \
+               f"Product ID: {self.prod_id}\n" \
+               f"Name: {self.name}\n" \
+               f"Details: {self._prod_details}"

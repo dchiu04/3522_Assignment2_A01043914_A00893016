@@ -1,8 +1,8 @@
 import abc
 from animal import Animal
 
+class AnimalFactory(abc.ABC):
 
-class AnimalFactory(abc.Abc):
     @staticmethod
     def create(stuffing, size, fabric, name, desc, prod_id):
         pass

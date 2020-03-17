@@ -13,7 +13,7 @@ class PumpkinToffeeFactory(CandyFactory):
         theme = "Halloween"
         lactose = False
         nuts = True
-        #return Candy(theme, lactose, nuts)
+        return Candy(theme, lactose, nuts, **kwargs)
 
 
 class CandyCaneFactory(CandyFactory):
@@ -22,7 +22,7 @@ class CandyCaneFactory(CandyFactory):
         theme = "Christmas"
         lactose = False
         nuts = False
-        #return Candy(theme, lactose, nuts)
+        return Candy(theme, lactose, nuts, **kwargs)
 
 
 class CremeEggsFactory(CandyFactory):
@@ -30,5 +30,5 @@ class CremeEggsFactory(CandyFactory):
     def create(**kwargs):
         theme = "Easter"
         number = 1
-        #return Candy(theme, number)
+        return Candy(theme, number, **kwargs)
 

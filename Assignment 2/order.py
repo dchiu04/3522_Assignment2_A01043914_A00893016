@@ -39,5 +39,5 @@ class Order:
                 f"Item: {self.type}\n" \
                 f"Product ID: {self.prod_id}\n" \
                 f"Name: {self.name}\n" \
-                f"Details: {self._prod_details}"
+                f"Details: {self._prod_details}\n"
 

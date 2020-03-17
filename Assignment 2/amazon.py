@@ -20,24 +20,24 @@ class Amazon:
               + str(date) + "\n\n")
 
 
-def menu(self):
-    cont = True
-    while cont:
-        user = int(input("\n----Amazon Menu----\n1)Process Web Orders"
-                         "\n2)Check Inventory\n3)Exit\n"))
-        if user == 1:
-            self.process_orders()
-        elif user == 2:
-            self.check_inv()
-        else:
-            self.print_report()
-            cont = False
-            return
+    def menu(self):
+        cont = True
+        while cont:
+            user = int(input("----Amazon Menu----\n1)Process Web Orders"
+                             "\n2)Check Inventory\n3)Exit\n"))
+            if user == 1:
+                self.process_orders()
+            elif user == 2:
+                self.check_inv()
+            else:
+                self.print_report()
+                cont = False
+                return
 
 
 def main():
     store = Amazon()
-    menu(store)
+    store.menu()
 
 
 if __name__ == '__main__':

@@ -32,11 +32,11 @@ class OrderProcessor:
 
         pass
 
-
-def main():
-    OrderProcessor.read_file_to_orders(OrderProcessor, "orders.xlsx")
-    OrderProcessor.factory_mapping(OrderProcessor)
-
-
-if __name__ == '__main__':
-    main()
+#
+# def main():
+#     OrderProcessor.read_file_to_orders("orders.xlsx")
+#     OrderProcessor.factory_mapping(OrderProcessor)
+#
+#
+# if __name__ == '__main__':
+#     main()

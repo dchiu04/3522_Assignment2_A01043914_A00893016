@@ -64,7 +64,7 @@ def main():
                   'size': i.details['size'],
                   'fabric': i.details['fabric']
                   }
-        i.factory.create(**kwargs)
+        i.factory.create(kwargs)
         # i.factory.create(has_batteries=i.details['has_batteries'],
         #                  min_age=i.details['min_age'],
         #                  dimensions=i.details['dimensions'],

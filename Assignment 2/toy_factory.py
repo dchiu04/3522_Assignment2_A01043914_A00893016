@@ -5,7 +5,7 @@ from toy import Toy
 
 class ToyFactory(abc.ABC):
     @abc.abstractmethod
-    def create(self, battery, min_age, name, desc, product_id):
+    def create(self, has_batteries, min_age, name, desc, prod_id):
         pass
 
 

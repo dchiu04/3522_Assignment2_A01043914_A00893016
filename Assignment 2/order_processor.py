@@ -46,16 +46,43 @@ def main():
 
     for i in orders:
         print(i.details['has_batteries'])
-        i.factory.create(**{'has_batteries': i.details['has_batteries'],
-                            'min_age': i.details['min_age'],
-                            'dimensions': i.details['dimensions'],
-                            'num_rooms': i.details['num_rooms'],
-                            'has_batteries': i.details['has_batteries'],
-                            'has_batteries': i.details['has_batteries'],
-                            'has_batteries': i.details['has_batteries'],
-                            'has_batteries': i.details['has_batteries'],
-                            'has_batteries': i.details['has_batteries']
-                            })
+        kwargs = {'has_batteries': i.details['has_batteries'],
+                  'min_age': i.details['min_age'],
+                  'dimensions': i.details['dimensions'],
+                  'num_rooms': i.details['num_rooms'],
+                  'speed': i.details['speed'],
+                  'jump_height': i.details['jump_height'],
+                  'has_glow': i.details['has_glow'],
+                  'spider_type': i.details['spider_type'],
+                  'num_sound': i.details['num_sound'],
+                  'colour': i.details['colour'],
+                  'has_lactose': i.details['has_lactose'],
+                  'has_nuts': i.details['has_nuts'],
+                  'variety': i.details['variety'],
+                  'pack_size': i.details['pack_size'],
+                  'stuffing': i.details['stuffing'],
+                  'size': i.details['size'],
+                  'fabric': i.details['fabric']
+                  }
+        i.factory.create(**kwargs)
+        # i.factory.create(has_batteries=i.details['has_batteries'],
+        #                  min_age=i.details['min_age'],
+        #                  dimensions=i.details['dimensions'],
+        #                  num_rooms=i.details['num_rooms'],
+        #                  speed=i.details['speed'],
+        #                  jump_height=i.details['jump_height'],
+        #                  has_glow=i.details['has_glow'],
+        #                  spider_type=i.details['spider_type'],
+        #                  num_sound=i.details['num_sound'],
+        #                  colour=i.details['colour'],
+        #                  has_lactose=i.details['has_lactose'],
+        #                  has_nuts=i.details['has_nuts'],
+        #                  variety=i.details['variety'],
+        #                  pack_size=i.details['pack_size'],
+        #                  stuffing=i.details['stuffing'],
+        #                  size=i.details['size'],
+        #                  fabric=i.details['fabric']
+        #                  )
     # OrderProcessor.factory_mapping(OrderProcessor)
 
 

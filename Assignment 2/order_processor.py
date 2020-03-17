@@ -4,10 +4,10 @@ from operator import itemgetter
 
 from animal_factory import ReindeerFactory, BunnyFactory, SkeletonFactory
 from candy_factory import CandyCaneFactory, CremeEggsFactory, PumpkinToffeeFactory
-from toy_factory import SantaFactory, RobotBunnyFactory, RCSpiderFactory
 from order import Order
+from toy_factory import SantaWorkshopFactory, SpiderFactory, RobotBunnyFactory
 
-factory_dict = {"Toy": {"Christmas": SantaFactory, "Easter": RobotBunnyFactory, "Halloween": RCSpiderFactory},
+factory_dict = {"Toy": {"Christmas": SantaWorkshopFactory, "Easter": RobotBunnyFactory, "Halloween": SpiderFactory},
                 "StuffedAnimal": {"Christmas": ReindeerFactory, "Easter": BunnyFactory, "Halloween": SkeletonFactory},
                 "Candy": {"Christmas": CandyCaneFactory, "Easter": CremeEggsFactory, "Halloween": PumpkinToffeeFactory}}
 
@@ -23,10 +23,28 @@ class OrderProcessor:
                 for i in orders:
                     holiday = i.get("holiday")
                     item = i.get("item")
+                    keys = ['has_batteries',
+                            'min_age',
+                            'dimensions',
+                            'num_rooms',
+                            'speed',
+                            'jump_height',
+                            'has_glow',
+                            'spider_type',
+                            'num_sound',
+                            'colour',
+                            'has_lactose',
+                            'has_nuts',
+                            'variety',
+                            'pack_size',
+                            'stuffing',
+                            'size',
+                            'fabric']
+                    details = {x: i[x] for x in keys}
                     order = Order(i.get("order_number"), i.get("product_id"), item, i.get("name"),
-                                  dict(list(i.items())[7:]))
+                                  details)
                     OrderProcessor.factory_mapping(order, holiday, item)
-                    print(order.factory)
+                    # print(order.factory)
                     all_orders.append(order)
             else:
                 raise FileNotFoundError("File was not found.")
@@ -39,52 +57,3 @@ class OrderProcessor:
         factory = factory_dict.get(item).get(holiday)
         # print(factory)
         order._factory = factory
-
-
-def main():
-    orders = OrderProcessor.read_file_to_orders("orders.xlsx")
-
-    for i in orders:
-        print(i.details['has_batteries'])
-        kwargs = {'has_batteries': i.details['has_batteries'],
-                  'min_age': i.details['min_age'],
-                  'dimensions': i.details['dimensions'],
-                  'num_rooms': i.details['num_rooms'],
-                  'speed': i.details['speed'],
-                  'jump_height': i.details['jump_height'],
-                  'has_glow': i.details['has_glow'],
-                  'spider_type': i.details['spider_type'],
-                  'num_sound': i.details['num_sound'],
-                  'colour': i.details['colour'],
-                  'has_lactose': i.details['has_lactose'],
-                  'has_nuts': i.details['has_nuts'],
-                  'variety': i.details['variety'],
-                  'pack_size': i.details['pack_size'],
-                  'stuffing': i.details['stuffing'],
-                  'size': i.details['size'],
-                  'fabric': i.details['fabric']
-                  }
-        i.factory.create(kwargs)
-        # i.factory.create(has_batteries=i.details['has_batteries'],
-        #                  min_age=i.details['min_age'],
-        #                  dimensions=i.details['dimensions'],
-        #                  num_rooms=i.details['num_rooms'],
-        #                  speed=i.details['speed'],
-        #                  jump_height=i.details['jump_height'],
-        #                  has_glow=i.details['has_glow'],
-        #                  spider_type=i.details['spider_type'],
-        #                  num_sound=i.details['num_sound'],
-        #                  colour=i.details['colour'],
-        #                  has_lactose=i.details['has_lactose'],
-        #                  has_nuts=i.details['has_nuts'],
-        #                  variety=i.details['variety'],
-        #                  pack_size=i.details['pack_size'],
-        #                  stuffing=i.details['stuffing'],
-        #                  size=i.details['size'],
-        #                  fabric=i.details['fabric']
-        #                  )
-    # OrderProcessor.factory_mapping(OrderProcessor)
-
-
-if __name__ == '__main__':
-    main()

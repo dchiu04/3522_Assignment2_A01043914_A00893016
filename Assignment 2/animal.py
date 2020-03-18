@@ -1,4 +1,3 @@
-
 class Animal:
     def __init__(self, stuffing, size, fabric, name, desc, prod_id):
         self._stuffing = stuffing
@@ -8,27 +7,35 @@ class Animal:
         self._desc = desc
         self._prod_id = prod_id
 
-    @property
-    def stuffing(self):
-        return self._stuffing
 
-    @property
-    def size(self):
-        return self._size
+class Skeleton(Animal):
+    def __init__(self, has_glow, **kwargs):
+        super().__init__(kwargs.get("stuffing"),
+                         kwargs.get("size"),
+                         kwargs.get("fabric"),
+                         kwargs.get("name"),
+                         kwargs.get("desc"),
+                         kwargs.get("prod_id"))
+        self._has_glow = has_glow
 
-    @property
-    def fabric(self):
-        return self._fabric
 
-    @property
-    def name(self):
-        return self._name
+class Reindeer(Animal):
+    def __init__(self, has_glow, **kwargs):
+        super().__init__(kwargs.get("stuffing"),
+                         kwargs.get("size"),
+                         kwargs.get("fabric"),
+                         kwargs.get("name"),
+                         kwargs.get("desc"),
+                         kwargs.get("prod_id"))
+        self._has_glow = has_glow
 
-    @property
-    def desc(self):
-        return self._desc
 
-    @property
-    def prod_id(self):
-        return self._prod_id
-
+class Bunny(Animal):
+    def __init__(self, colour, **kwargs):
+        super().__init__(kwargs.get("stuffing"),
+                         kwargs.get("size"),
+                         kwargs.get("fabric"),
+                         kwargs.get("name"),
+                         kwargs.get("desc"),
+                         kwargs.get("prod_id"))
+        self._colour = colour

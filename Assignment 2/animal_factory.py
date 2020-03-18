@@ -1,35 +1,23 @@
 import abc
-from animal import Animal
+from animal import Animal, Skeleton, Bunny, Reindeer
+
 
 class AnimalFactory(abc.ABC):
-
-    @staticmethod
-    def create(stuffing, size, fabric, name, desc, product_id):
+    @abc.abstractmethod
+    def create(self, **kwargs):
         pass
 
 
 class SkeletonFactory(AnimalFactory):
-    @staticmethod
-    def create(fabric, stuffing, has_glow, **kwargs):
-        yarn = fabric
-        stuff = stuffing
-        glow_in_dark = has_glow
-        return Animal(yarn, stuff, glow_in_dark, **kwargs)
+    def create(self, has_glow="", **kwargs):
+        return Skeleton(has_glow, **kwargs)
 
 
 class ReindeerFactory(AnimalFactory):
-    @staticmethod
-    def create(fabric, stuffing, has_glow, **kwargs):
-        stuff = stuffing
-        yarn = fabric
-        glow = has_glow
-        return Animal(yarn, stuff, glow, **kwargs)
+    def create(self, has_glow="", **kwargs):
+        return Reindeer(has_glow, **kwargs)
 
 
 class BunnyFactory(AnimalFactory):
-    @staticmethod
-    def create(fabric, stuffing, colour, **kwargs):
-        stuff = stuffing
-        yarn = fabric
-        colours = colour
-        return Animal(stuffing, fabric, colours, **kwargs)
+    def create(self, colour="", **kwargs):
+        return Bunny(colour, **kwargs)

@@ -1,6 +1,5 @@
 class Animal:
-    def __init__(self, quantity, stuffing, size, fabric, name, desc, prod_id):
-        self._quantity = quantity
+    def __init__(self, stuffing, size, fabric, name, desc, prod_id):
         self._stuffing = stuffing
         self._size = size
         self._fabric = fabric
@@ -11,7 +10,7 @@ class Animal:
 
 class Skeleton(Animal):
     def __init__(self, has_glow, **kwargs):
-        super().__init__(kwargs.get("quantity"),
+        super().__init__(
                          kwargs.get("stuffing"),
                          kwargs.get("size"),
                          kwargs.get("fabric"),
@@ -24,7 +23,7 @@ class Skeleton(Animal):
 
 class Reindeer(Animal):
     def __init__(self, has_glow, **kwargs):
-        super().__init__(kwargs.get("quantity"),
+        super().__init__(
                          kwargs.get("stuffing"),
                          kwargs.get("size"),
                          kwargs.get("fabric"),
@@ -37,7 +36,7 @@ class Reindeer(Animal):
 
 class Bunny(Animal):
     def __init__(self, colour, **kwargs):
-        super().__init__(kwargs.get("quantity"),
+        super().__init__(
                          kwargs.get("stuffing"),
                          kwargs.get("size"),
                          kwargs.get("fabric"),

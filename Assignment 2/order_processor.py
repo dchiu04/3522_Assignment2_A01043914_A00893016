@@ -23,7 +23,8 @@ class OrderProcessor:
                 for i in orders:
                     holiday = i.get("holiday")
                     item = i.get("item")
-                    keys = ['has_batteries',
+                    keys = ['quantity',
+                            'has_batteries',
                             'min_age',
                             'dimensions',
                             'num_rooms',
@@ -41,7 +42,7 @@ class OrderProcessor:
                             'size',
                             'fabric']
                     details = {x: i[x] for x in keys}
-                    order = Order(i.get("order_number"), i.get("product_id"), item, i.get("name"),
+                    order = Order(i.get("order_number"), item, i.get("name"), i.get("product_id"),
                                   details)
                     OrderProcessor.factory_mapping(order, holiday, item)
                     # print(order.factory)
@@ -55,5 +56,5 @@ class OrderProcessor:
     @staticmethod
     def factory_mapping(order, holiday, item):
         factory = factory_dict.get(item).get(holiday)
-        # print(factory)
+        print(factory)
         order._factory = factory

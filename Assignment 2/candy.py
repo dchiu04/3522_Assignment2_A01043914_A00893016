@@ -1,5 +1,6 @@
 class Candy:
-    def __init__(self, nuts, lactose, name, desc, prod_id):
+    def __init__(self, quantity, nuts, lactose, name, desc, prod_id):
+        self._quantity = quantity
         self._nuts = nuts
         self._lactose = lactose
         self._name = name
@@ -9,29 +10,35 @@ class Candy:
 
 class PumpkinToffee(Candy):
     def __init__(self, variety, **kwargs):
-        super().__init__(kwargs.get("nuts"),
+        super().__init__(kwargs.get("quantity"),
+                         kwargs.get("nuts"),
                          kwargs.get("lactose"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id"))
+                         kwargs.get("prod_id")
+                         )
         self._variety = variety
 
 
 class CandyCane(Candy):
     def __init__(self, colour, **kwargs):
-        super().__init__(kwargs.get("nuts"),
+        super().__init__(kwargs.get("quantity"),
+                         kwargs.get("nuts"),
                          kwargs.get("lactose"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id"))
+                         kwargs.get("prod_id")
+                         )
         self._colour = colour
 
 
 class CremeEggs(Candy):
     def __init__(self, pack_size, **kwargs):
-        super().__init__(kwargs.get("nuts"),
+        super().__init__(kwargs.get("quantity"),
+                         kwargs.get("nuts"),
                          kwargs.get("lactose"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id"))
+                         kwargs.get("prod_id")
+                         )
         self._pack_size = pack_size

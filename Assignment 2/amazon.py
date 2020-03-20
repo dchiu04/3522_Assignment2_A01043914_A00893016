@@ -8,13 +8,13 @@ class Amazon:
 
     def process_orders(self):
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
-        # op = OrderProcessor()
-        # self._inventory = op.read_file_to_orders(user + ".xlsx")
-        orders = OrderProcessor.read_file_to_orders(user + ".xlsx")
+        op = OrderProcessor()
+        self._inventory = op.read_file_to_orders(user + ".xlsx")
 
-        for i in orders:
+        for i in self._inventory:
             # print(i.details['has_batteries'])
-            kwargs = {'has_batteries': i.details['has_batteries'],
+            kwargs = {'quantity': i.details['quantity'],
+                      'has_batteries': i.details['has_batteries'],
                       'min_age': i.details['min_age'],
                       'dimensions': i.details['dimensions'],
                       'num_rooms': i.details['num_rooms'],
@@ -35,6 +35,7 @@ class Amazon:
             for key, value in kwargs.items():
                 print(key, value)
             i.factory.create(kwargs)
+        print("finished processing orders")
 
     def restock_inv(self, prod_id):
         for i in self._inventory:

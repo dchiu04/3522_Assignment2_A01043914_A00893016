@@ -2,7 +2,8 @@ import abc
 
 
 class Toy(abc.ABC):
-    def __init__(self, battery, min_age, name, desc, prod_id):
+    def __init__(self, quantity, battery, min_age, name, desc, prod_id):
+        self._quantity = quantity
         self._battery = battery
         self._min_age = min_age
         self._name = name
@@ -10,13 +11,15 @@ class Toy(abc.ABC):
         self._prod_id = prod_id
 
 
+
 class SantaWorkshop(Toy):
     def __init__(self, dimensions, num_rooms, **kwargs):
-        super().__init__(kwargs.get("battery"),
+        super().__init__(kwargs.get("quantity"),
+                         kwargs.get("battery"),
                          kwargs.get("min_age"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id"),
+                         kwargs.get("prod_id")
                          )
         self._dimensions = dimensions
         self._num_rooms = num_rooms
@@ -24,11 +27,13 @@ class SantaWorkshop(Toy):
 
 class Spider(Toy):
     def __init__(self, speed, jump, glow, species, **kwargs):
-        super().__init__(kwargs.get("battery"),
+        super().__init__(kwargs.get("quantity"),
+                         kwargs.get("battery"),
                          kwargs.get("min_age"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id"))
+                         kwargs.get("prod_id")
+                         )
         self._speed = speed
         self._jump = jump
         self._glow = glow
@@ -37,10 +42,12 @@ class Spider(Toy):
 
 class RobotBunny(Toy):
     def __init__(self, num_sound, colour, **kwargs):
-        super().__init__(kwargs.get("battery"),
+        super().__init__(kwargs.get("quantity"),
+                         kwargs.get("battery"),
                          kwargs.get("min_age"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id"))
+                         kwargs.get("prod_id")
+                         )
         self._num_sound = num_sound
         self._colour = colour

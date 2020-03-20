@@ -32,29 +32,43 @@ class Amazon:
                       'size': i.details['size'],
                       'fabric': i.details['fabric']
                       }
-            for key, value in kwargs.items():
-                print(key, value)
+            #for key, value in kwargs.items():
+                #print(key, value)
             i.factory.create(kwargs)
-        print("finished processing orders")
+        print("Successfully processed orders.")
 
     def restock_inv(self, prod_id):
         for i in self._inventory:
             if i.prod_id == prod_id:
                 print(i.name + " " + i.prod_id)
+
+                # THIS CODE HERE CAN BE FOR RESTOCK_INV()
                 # if i.quantity == 0:
                 #     i.quantity += 100
                 #     print("increased quantity by 100")
+                # [print(d) for d in self._inventory if d['item'] == 'Toy' and d['holiday'] == 'Christmas']
+                # for i in self._inventory:
+                #     if prod_id == i:
+                #         if i.value == 0:
+                #             self._inventory[i].value += 100
 
-        # obj = list(filter(lambda inventory: inventory['product_id'] == prod_id, self._inventory))
-
-        # print(self._inventory[0].product_id)
 
     def check_inv(self):
-        pass
-        # for i in self._inventory:
-        #     if prod_id == i:
-        #         if i.value == 0:
-        #             self._inventory[i].value += 100
+        for i in self._inventory:
+            if i._prod_details['quantity'] >= 10:
+                print(i)
+                print("In Stock (10 or more)")
+            elif 10 > i._prod_details['quantity'] > 3:
+                print(i)
+                print("Low stock (less than 10 and bigger than 3)")
+            elif i._prod_details['quantity'] < 3:
+                print(i)
+                print("Very Low stock (less than 3")
+            else:
+                print(i)
+                print("Out of stock (0)")
+
+
 
     def print_report(self):
         date = datetime.datetime.now()
@@ -69,7 +83,8 @@ class Amazon:
             if user == 1:
                 self.process_orders()
             elif user == 2:
-                self.restock_inv("C7777C")
+                #self.restock_inv("C7777C")
+                self.check_inv()
             else:
                 self.print_report()
                 cont = False

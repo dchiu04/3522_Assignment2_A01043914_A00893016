@@ -42,13 +42,13 @@ class OrderProcessor:
                             'size',
                             'fabric']
                     details = {x: i[x] for x in keys}
-                    order = Order(i.get("order_number"), item, i.get("name"), i.get("product_id"),
+                    order = Order(i.get("order_number"), i.get("product_id"), item, i.get("name"),
                                   details)
                     OrderProcessor.factory_mapping(order, holiday, item)
                     # print(order.factory)
                     all_orders.append(order)
             else:
-                raise FileNotFoundError("File was not found.")
+                raise FileNotFoundError("File was not found. Orders were not processed.")
 
         finally:
             return all_orders
@@ -56,5 +56,5 @@ class OrderProcessor:
     @staticmethod
     def factory_mapping(order, holiday, item):
         factory = factory_dict.get(item).get(holiday)
-        print(factory)
+        #print(factory)
         order._factory = factory

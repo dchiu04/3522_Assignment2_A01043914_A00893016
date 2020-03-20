@@ -6,9 +6,10 @@ class Order:
         self._item_type = item_type
         self._name = name
         self._prod_details = prod_details
+        self._factory = None
 
     @property
-    def order(self):
+    def order_num(self):
         return self._order_num
 
     @property
@@ -36,7 +37,7 @@ class Order:
         #     .format(self.order(), self.type(), self.prod_id(),
         #             self.name(), 100)
 
-        return f"---- Order: {self.order} ----\n" \
+        return f"---- Order: {self.order_num} ----\n" \
                f"Item: {self.type}\n" \
                f"Product ID: {self.prod_id}\n" \
                f"Name: {self.name}\n" \

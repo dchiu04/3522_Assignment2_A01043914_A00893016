@@ -1,6 +1,5 @@
 import pandas as pd
 from pathlib import Path
-from operator import itemgetter
 
 from animal_factory import ReindeerFactory, BunnyFactory, SkeletonFactory
 from candy_factory import CandyCaneFactory, CremeEggsFactory, PumpkinToffeeFactory
@@ -16,14 +15,14 @@ class OrderProcessor:
 
     @staticmethod
     def read_file_to_orders(fn):
-        all_orders = []
+        all_orders = {}
         try:
             if Path(fn).is_file():
                 orders = pd.read_excel(fn).to_dict(orient="record")
                 for i in orders:
                     holiday = i.get("holiday")
                     item = i.get("item")
-                    keys = ['quantity',
+                    keys = ['description',
                             'has_batteries',
                             'min_age',
                             'dimensions',
@@ -46,7 +45,7 @@ class OrderProcessor:
                                   details)
                     OrderProcessor.factory_mapping(order, holiday, item)
                     # print(order.factory)
-                    all_orders.append(order)
+                    all_orders[order.order_num] = [i.get('quantity'), order]
             else:
                 raise FileNotFoundError("File was not found. Orders were not processed.")
 
@@ -56,5 +55,5 @@ class OrderProcessor:
     @staticmethod
     def factory_mapping(order, holiday, item):
         factory = factory_dict.get(item).get(holiday)
-        #print(factory)
+        # print(factory)
         order._factory = factory

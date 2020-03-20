@@ -10,15 +10,15 @@ class ToyFactory(abc.ABC):
 
 
 class SantaWorkshopFactory(ToyFactory):
-    def create(self, dimensions = "", num_rooms = "", **kwargs):
+    def create(self, dimensions="", num_rooms="", **kwargs):
         return SantaWorkshop(dimensions, num_rooms, **kwargs)
 
 
 class SpiderFactory(ToyFactory):
-    def create(self, speed="", jump = "", glow = "", species = "", **kwargs):
+    def create(self, speed="", jump="", glow="", species="", **kwargs):
         return Spider(speed, jump, glow, species, **kwargs)
 
 
 class RobotBunnyFactory(ToyFactory):
-    def create(self, num_sound = "", colour="", **kwargs):
+    def create(self, num_sound="", colour="", **kwargs):
         return RobotBunny(num_sound, colour, **kwargs)

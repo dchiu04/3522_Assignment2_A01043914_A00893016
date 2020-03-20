@@ -1,11 +1,12 @@
 class Order:
 
-    def __init__(self, order_num, prod_id, item_type, name, prod_details):
+    def __init__(self, order_num, prod_id, item_type, name, prod_details, factory):
         self._order_num = order_num
         self._prod_id = prod_id
         self._item_type = item_type
         self._name = name
         self._prod_details = prod_details
+        self._factory = factory
 
     @property
     def order(self):
@@ -40,4 +41,5 @@ class Order:
                f"Item: {self.type}\n" \
                f"Product ID: {self.prod_id}\n" \
                f"Name: {self.name}\n" \
-               f"Details: {self._prod_details}"
+               f"Details: {self._prod_details}\n" \
+               f"Factory: {self._factory}"

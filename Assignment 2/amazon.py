@@ -64,11 +64,8 @@ class Amazon:
                 #             self._inventory[i].value += 100
 
     def check_inv(self, product_id, quantity_ordered):
-        quantity = 0
         try:
             quantity = self._inventory[product_id][0]
-        except TypeError:
-            quantity = 0
         except KeyError:
             quantity = 0
         finally:
@@ -116,8 +113,7 @@ class Amazon:
 def main():
     store = Amazon()
     store.menu()
-    for i in store._inventory:
-        print(i._name)
+    print(store._inventory)
 
 
 if __name__ == '__main__':

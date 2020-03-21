@@ -100,18 +100,14 @@ class Amazon:
 
     def check_inv(self):
         for i, k in self._inventory.items():
-            # print(len(k))
+            print(len(k))
             if len(k) >= 10:
-                print(i)
                 print("In Stock (10 or more)")
-            elif 10 > len(k)> 3:
-                print(i)
+            elif 10 > len(k) > 3:
                 print("Low stock (less than 10 and bigger than 3)")
-            elif len(k) < 3:
-                print(i)
+            elif 0 < len(k) <= 3:
                 print("Very Low stock (less than 3")
             else:
-                print(i)
                 print("Out of stock (0)")
 
     def print_report(self):

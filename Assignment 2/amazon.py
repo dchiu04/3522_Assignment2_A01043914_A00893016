@@ -46,13 +46,16 @@ class Amazon:
             try:
                 if self.check_quantity(item.product_id, orders[i][0]):
                     for x in range(orders[i][0]):
-                        self._inventory[item.product_id].remove(item)
+                        item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
+                        self._inventory[item.product_id].pop()
                 else:
                     for x in range(100 - orders[i][0]):
+                        item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
                         self._inventory[item.product_id].append(item)
             except KeyError:
                 self._inventory[item.product_id] = []
                 for x in range(100 - orders[i][0]):
+                    item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
                     self._inventory[item.product_id].append(item)
 
         # for (key, value) in self._inventory:
@@ -61,13 +64,10 @@ class Amazon:
         print("Successfully processed orders.")
 
     def check_quantity(self, product_id, quantity_ordered):
-        quantity = self._inventory[product_id].length
+        quantity = len(self._inventory[product_id])
         if quantity > quantity_ordered:
             return True
-        else:
-            return False
         return False
-
 
     # def init_quantity(self, product_id, quantity_ordered):
     #     quantity = 0
@@ -83,30 +83,31 @@ class Amazon:
     #         else:
     #             return False
 
-    def restock_inv(self, prod_id):
-        for i in self._inventory:
-            if i.prod_id == prod_id:
-                print(i.name + " " + i.prod_id)
-
-                # THIS CODE HERE CAN BE FOR RESTOCK_INV()
-                # if i.quantity == 0:
-                #     i.quantity += 100
-                #     print("increased quantity by 100")
-                # [print(d) for d in self._inventory if d['item'] == 'Toy' and d['holiday'] == 'Christmas']
-                # for i in self._inventory:
-                #     if prod_id == i:
-                #         if i.value == 0:
-                #             self._inventory[i].value += 100
+    # def restock_inv(self, prod_id):
+    #     for i in self._inventory:
+    #         if i.prod_id == prod_id:
+    #             print(i.name + " " + i.prod_id)
+    #
+    #             # THIS CODE HERE CAN BE FOR RESTOCK_INV()
+    #             # if i.quantity == 0:
+    #             #     i.quantity += 100
+    #             #     print("increased quantity by 100")
+    #             # [print(d) for d in self._inventory if d['item'] == 'Toy' and d['holiday'] == 'Christmas']
+    #             # for i in self._inventory:
+    #             #     if prod_id == i:
+    #             #         if i.value == 0:
+    #             #             self._inventory[i].value += 100
 
     def check_inv(self):
-        for i in self._inventory:
-            if i._prod_details['quantity'] >= 10:
+        for i, k in self._inventory.items():
+            # print(len(k))
+            if len(k) >= 10:
                 print(i)
                 print("In Stock (10 or more)")
-            elif 10 > i._prod_details['quantity'] > 3:
+            elif 10 > len(k)> 3:
                 print(i)
                 print("Low stock (less than 10 and bigger than 3)")
-            elif i._prod_details['quantity'] < 3:
+            elif len(k) < 3:
                 print(i)
                 print("Very Low stock (less than 3")
             else:
@@ -126,7 +127,6 @@ class Amazon:
             if user == 1:
                 self.process_orders()
             elif user == 2:
-                # self.restock_inv("C7777C")
                 self.check_inv()
             else:
                 self.print_report()
@@ -137,11 +137,10 @@ class Amazon:
 def main():
     store = Amazon()
     store.menu()
-    for i, k in store._inventory.items():
-        for x in k:
-            print(x)
-
-
+    # for i, k in store._inventory.items():
+    #     print(k)
+    #     for x in k:
+    #         print(x)
 
 if __name__ == '__main__':
     main()

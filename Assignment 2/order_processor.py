@@ -44,8 +44,9 @@ class OrderProcessor:
                     order = Order(i.get("order_number"), i.get("product_id"), item, i.get("name"),
                                   details)
                     OrderProcessor.factory_mapping(order, holiday, item)
-                    # print(order.factory)
-                    all_orders[order.order_num] = [i.get('quantity'), order]
+                    #print(order._factory)
+                    #all_orders[order._order_num] = [i.get('quantity'), order]
+                    all_orders[order._order_num] = [order]
             else:
                 raise FileNotFoundError("File was not found. Orders were not processed.")
 
@@ -55,5 +56,5 @@ class OrderProcessor:
     @staticmethod
     def factory_mapping(order, holiday, item):
         factory = factory_dict.get(item).get(holiday)
-        # print(factory)
+        #print(factory)
         order._factory = factory

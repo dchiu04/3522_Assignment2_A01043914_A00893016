@@ -9,6 +9,8 @@ class Toy(abc.ABC):
         self._desc = desc
         self._prod_id = prod_id
 
+    def error_handle(self):
+        return True
 
 class SantaWorkshop(Toy):
     def __init__(self, dimensions, num_rooms, **kwargs):
@@ -21,6 +23,19 @@ class SantaWorkshop(Toy):
         )
         self._dimensions = dimensions
         self._num_rooms = num_rooms
+
+    def error_handle(self):
+        try:
+            self._dimensions += 0
+        except TypeError:
+            print("InvalidDataError - Dimensions must be in the format (width, height).")
+            return False
+        try:
+            self._num_rooms += 0
+        except TypeError:
+            print("InvalidDataError - Number of rooms must be an int.")
+            return False
+        return True
 
 
 class Spider(Toy):
@@ -36,6 +51,19 @@ class Spider(Toy):
         self._jump = jump
         self._glow = glow
         self._species = species
+
+    def error_handle(self):
+        try:
+            self._dimensions += 0
+        except TypeError:
+            print("InvalidDataError - Dimensions must be in the format (width, height).")
+            return False
+        try:
+            self._num_rooms += 0
+        except TypeError:
+            print("InvalidDataError - Number of rooms must be an int.")
+            return False
+        return True
 
 
 class RobotBunny(Toy):

@@ -5,12 +5,13 @@ import datetime
 class Amazon:
     def __init__(self):
         self._inventory = {}
+        self._orders = None
 
     def process_orders(self):
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
         op = OrderProcessor()
         orders = op.read_file_to_orders(user + ".xlsx")
-
+        self._orders = orders
         # print("SHOULD BE PRINTING ORDERS")
         # print(orders)
         for i in orders:
@@ -110,6 +111,7 @@ class Amazon:
             else:
                 print("Out of stock (0)")
 
+    @staticmethod
     def print_report(self):
         date = datetime.datetime.now()
         print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"

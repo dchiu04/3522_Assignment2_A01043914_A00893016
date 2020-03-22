@@ -1,4 +1,5 @@
 import math
+from datetime import datetime
 
 import pandas as pd
 from pathlib import Path
@@ -11,6 +12,7 @@ from toy_factory import SantaWorkshopFactory, SpiderFactory, RobotBunnyFactory
 factory_dict = {"Toy": {"Christmas": SantaWorkshopFactory, "Easter": RobotBunnyFactory, "Halloween": SpiderFactory},
                 "StuffedAnimal": {"Christmas": ReindeerFactory, "Easter": BunnyFactory, "Halloween": SkeletonFactory},
                 "Candy": {"Christmas": CandyCaneFactory, "Easter": CremeEggsFactory, "Halloween": PumpkinToffeeFactory}}
+orders_to_be_printed = [[]]
 
 
 class OrderProcessor:
@@ -23,6 +25,7 @@ class OrderProcessor:
         :return: all_orders list of dictionary
         """
 
+        count = 0
         all_orders = {}
         if Path(fn).is_file():
             orders = pd.read_excel(fn).to_dict(orient="record")
@@ -52,12 +55,22 @@ class OrderProcessor:
                               details)
                 OrderProcessor.factory_mapping(order, holiday, item)
 
-                # # Only add valid orders to the store
+                # Only add valid orders to the store
                 (message, condition) = OrderProcessor.error_handle(order, holiday)
+
+                # condition = true/false, message = what gets printed to the report
+                orders_to_be_printed.append([condition, [message]])
+
                 if condition:
-                    print(order.order_num)
-                    print("pass")
+                    # print(order.order_num)
+                    # print("pass")
+                    temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
+                    print(temp.format(order.order_num, order.item_type, order.product_id, order.name, order))
+                    #file.write(temp.format(i.order_num, i.item_type, i.product_id, i.name, i))
+                    #file.write("\n")
+
                     all_orders[order.order_num] = [i.get('quantity'), order]
+
                 else:
                     print(message)
                 # all_orders[order.order_num] = [i.get('quantity'), order]
@@ -66,6 +79,28 @@ class OrderProcessor:
         return all_orders
 
     @staticmethod
+    def append_to_file():
+        date = datetime.now()
+        with open("report.txt", "a") as file:
+            file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                       + str(date) + "\n\n")
+            print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                  + str(date) + "\n\n")
+            for k, l in orders_to_be_printed:
+                if k:
+                    print(l)
+                else:
+                    print("false")
+
+                # # Should be printing orders and orders with errors
+                # print(i)
+                # file.write(i)
+                # print("Should be printing orders")
+                # temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
+                # print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+                # file.write(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+                # file.write("\n")
+
     def factory_mapping(order, holiday, item):
         """
             Maps the correct holiday to the order item.
@@ -90,24 +125,32 @@ class OrderProcessor:
 
     @staticmethod
     def error_handle(order, holiday):
-        print(order.details['variety'])
         try:
+            # Checking for holiday
             if holiday == 'Christmas' or holiday == 'Easter' or \
                     holiday == 'Halloween':
+                # Need a message for when true
                 pass
             else:
-                return "holiday can only be ""Christmas"" or ""Easter"" or ""Halloween", False
+                return "Order {}, Could not process order data was corrupted, InvalidDataError - " \
+                       "holiday can only be ""Christmas"" or ""Easter"" or ""Halloween".format(order.order_num), False
         except TypeError:
-            return "holiday can only be ""Christmas"" or ""Easter"" or ""Halloween", False
+            return "Order {}, Could not process order data was corrupted, InvalidDataError - " \
+                   "holiday can only be ""Christmas"" or ""Easter"" or ""Halloween".format(
+                order.details['order_num']), False
         try:
+            # Checking for item type
             if order.item_type == 'Toy' or order.item_type == 'StuffedAnimal' or \
                     order.item_type == 'Candy':
                 pass
             else:
-                return "item can only be ""Toy"" or ""StuffedAnimal"" or ""Candy", False
+                return "Order {}, Could not process order data was corrupted, InvalidDataError - " \
+                       "item can only be ""Toy"" or ""StuffedAnimal"" or ""Candy""".format(order.order_num), False
         except TypeError:
-            return "item can only be ""Toy"" or ""StuffedAnimal"" or ""Candy", False
+            return "Order {}, Could not process order data was corrupted, InvalidDataError - " \
+                   "item can only be ""Toy"" or ""StuffedAnimal"" or ""Candy""".format(order.order_num), False
         try:
+            # Checking for has_batteries
             if order.details['has_batteries'] == 'Y' or order.details['has_batteries'] == 'N' \
                     or math.isnan(order.details['has_batteries']):
                 pass
@@ -172,9 +215,13 @@ class OrderProcessor:
                     or math.isnan(order.details['has_glow']):
                 pass
             else:
-                return "colour can only be ""Grey"" or ""Orange""or ""Green""or ""Pink""or ""Red", False
+                return "Order {}, Could not process order data was corrupted, InvalidDataError - " \
+                       "colour can only be ""Grey"" or ""Orange"" or ""Green"" or ""Pink"" or ""Red""".format(
+                    order.details['order_num']), False
         except TypeError:
-            return "colour can only be ""Grey"" or ""Orange""or ""Green""or ""Pink""or ""Red", False
+            return "Order {}, Could not process order data was corrupted, InvalidDataError - " \
+                   "colour can only be ""Grey"" or ""Orange"" or ""Green"" or ""Pink"" or ""Red""".format(
+                order.order_num), False
         try:
             if order.details['has_lactose'] == 'Y' or order.details['has_lactose'] == 'N' \
                     or math.isnan(order.details['has_lactose']):

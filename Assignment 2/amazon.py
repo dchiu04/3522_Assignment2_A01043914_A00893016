@@ -121,7 +121,8 @@ class Amazon:
     #             pass
     #     return True
 
-    # def print_report(self):
+    def print_report(self):
+        OrderProcessor.append_to_file()
     #     date = datetime.datetime.now()
     #     with open("report.txt", "a") as file:
     #         file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
@@ -147,7 +148,7 @@ class Amazon:
             elif user == 2:
                 self.check_inv()
             else:
-                # self.print_report()
+                self.print_report()
                 cont = False
                 return
 

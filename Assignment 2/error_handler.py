@@ -1,3 +1,6 @@
+import math
+
+
 class BatteryException(Exception):
     """
     If an order's constructor is passed in parameters for a toy that is intended to require
@@ -5,10 +8,12 @@ class BatteryException(Exception):
     exception should be thrown. Moreover, if this is N or F, this should be thrown.
     """
 
-    def __init__(self, file, k):
-        string = "Order: {}, Could be process order data was corrupted," \
-                 " {} - Has Batteries can only be ""Y"" or ""N""\n"
-        file.write(string.format(k._order_num, Exception))
+    def __init__(self,order):
+
+        with open("report.txt", "a") as file:
+            string = "Order: {}, Could be process order data was corrupted," \
+                     " {} - Has Batteries can only be ""Y"" or ""N""\n"
+            file.write(string.format(order.order_num, Exception))
 
 
 class MinAgeException(Exception):
@@ -18,61 +23,65 @@ class MinAgeException(Exception):
     passed in as a minimum age, this should be thrown.
     """
 
-    def __init__(self, file, k):
-        string = "Order: {}, Could be process order data was corrupted," \
-                 " {} - Min Age can only be an integer.\n"
-        file.write(string.format(k._order_num, Exception))
+    def __init__(self, order):
+
+        with open("report.txt", "a") as file:
+            string = "Order: {}, Could be process order data was corrupted," \
+                     " {} - Min Age can only be an integer.\n"
+            file.write(string.format(order.order_num, Exception))
 
 
 class SpiderTypeException(Exception):
-    def __init__(self, file, k):
-        string = "Order: {}, Could be process order data was corrupted," \
-                 " {} - Spider type can only be ""Wolf Spider"" or ""Tarantula""\n"
-        file.write(string.format(k._order_num, Exception))
+    def __init__(self, order):
+
+        with open("report.txt", "a") as file:
+            string = "Order: {}, Could be process order data was corrupted," \
+                     " {} - Spider type can only be ""Wolf Spider"" or ""Tarantula""\n"
+            file.write(string.format(order.order_num, Exception))
 
 
 class AnimalColourException(Exception):
-    def __init__(self, file, k):
+    def __init__(self, file, order):
         string = "Order: {}, Could be process order data was corrupted," \
                  " {} - Animal colour can only be ""White"" or ""Grey"" \
                  or ""Pink"" or ""Blue""\n"
-        file.write(string.format(k._order_num, Exception))
+        file.write(string.format(order.order_num, Exception))
 
 
 class ToyColourException(Exception):
-    def __init__(self, file, k):
+    def __init__(self, file, order):
         string = "Order: {}, Could be process order data was corrupted," \
                  " {} - Toy colour can only be ""Orange"" or ""Blue" \
                  "or ""Pink""\n"
-        file.write(string.format(k._order_num, Exception))
+        file.write(string.format(order.order_num, Exception))
 
 
 class CandyColourException(Exception):
-    def __init__(self, file, k):
+    def __init__(self, file, order):
         string = "Order: {}, Could be process order data was corrupted," \
                  " {} - Candy colour can only be ""Red"" or ""Green""\n"
-        file.write(string.format(k._order_num, Exception))
+        file.write(string.format(order.order_num, Exception))
 
 
 class HasLactoseException(Exception):
-    def __init__(self, file, k):
+    def __init__(self, file, order):
         string = "Order: {}, Could be process order data was corrupted," \
                  " {} - HasLactose can only be ""Y"" or ""N""\n"
-        file.write(string.format(k._order_num, Exception))
+        file.write(string.format(order.order_num, Exception))
 
 
 class HasNutsException(Exception):
-    def __init__(self, file, k):
+    def __init__(self, file, order):
         string = "Order: {}, Could be process order data was corrupted," \
                  " {} - HasNuts can only be ""Y"" or ""N""\n"
-        file.write(string.format(k._order_num, Exception))
+        file.write(string.format(order.order_num, Exception))
 
 
 class VarietyException(Exception):
-    def __init__(self, file, k):
+    def __init__(self, file, order):
         string = "Order: {}, Could be process order data was corrupted," \
                  " {} - Variety can only be ""Sea Salt"" or ""Regular""\n"
-        file.write(string.format(k._order_num, Exception))
+        file.write(string.format(order.order_num, Exception))
 
 
 class StuffingException(Exception):
@@ -82,10 +91,12 @@ class StuffingException(Exception):
     stuffing is expected.
     """
 
-    def __init__(self, file, k):
-        string = "Order: {}, Could be process order data was corrupted," \
-                 " {} - Stuffing can only be ""Polyester Fibrefill"" or ""Wool""\n"
-        file.write(string.format(k._order_num, Exception))
+    def __init__(self,  order):
+
+        with open("report.txt", "a") as file:
+            string = "Order: {}, Could be process order data was corrupted," \
+                     " {} - Stuffing can only be ""Polyester Fibrefill"" or ""Wool""\n"
+            file.write(string.format(order.order_num, StuffingException))
 
 
 class SizeException(Exception):
@@ -95,11 +106,11 @@ class SizeException(Exception):
     fabric is expected.
     """
 
-    def __init__(self, file, k):
+    def __init__(self, file, order):
         string = "Order: {}, Could be process order data was corrupted," \
                  " {} - Size can only be ""S"" or ""M"" \
                  or ""L""\n"
-        file.write(string.format(k._order_num, Exception))
+        file.write(string.format(order.order_num, Exception))
 
 
 class FabricException(Exception):
@@ -109,11 +120,13 @@ class FabricException(Exception):
     fabric is expected.
     """
 
-    def __init__(self, file, k):
-        string = "Order: {}, Could be process order data was corrupted," \
-                 " {} - Fabric can only be ""Linen"" or ""Acrylic"" \
-                 or ""Cotton""\n"
-        file.write(string.format(k._order_num, Exception))
+    def __init__(self,  order):
+
+        with open("report.txt", "a") as file:
+            string = "Order: {}, Could be process order data was corrupted," \
+                     " {} - Fabric can only be ""Linen"" or ""Acrylic"" \
+                     or ""Cotton""\n"
+            file.write(string.format(order.order_num, Exception))
 
 
 battery = {'Halloween': {'Y': True},
@@ -160,24 +173,44 @@ class ErrorHandler:
     """
 
     @staticmethod
-    def error_check(holiday, item, **kwargs):
-        if item == "Toy":
+    def error_check(holiday, order, kwargs):
+        print(order.item_type)
+        if order.item_type == "Toy":
             try:
-                battery[holiday][kwargs.get("has_batteries")]
-                return True
+                var = (battery[holiday][kwargs.get("has_batteries")])
+                math.isnan(kwargs.get("stuffing"))
             except KeyError:
-                raise BatteryException
-        elif item == "Stuffed Animal":
+                with open("report.txt", "a") as file:
+                    string = "Order: {}, Could be process order data was corrupted," \
+                             " {} - Has Batteries can only be ""Y"" or ""N""\n"
+                    file.write(string.format(order.order_num, BatteryException))
+                return False
+        elif order.item_type == "StuffedAnimal":
             try:
-                stuffing[holiday][kwargs.get("stuffing")]
-                return True
+                var = (stuffing[holiday][kwargs.get("stuffing")])
+                math.isnan(kwargs.get("stuffing"))
             except KeyError:
-                raise StuffingException
+                with open("report.txt", "a") as file:
+                    string = "Order: {}, Could be process order data was corrupted," \
+                             " {} - Stuffing can only be ""Polyester Fibrefill"" or ""Wool""\n"
+                    file.write(string.format(order.order_num, StuffingException))
+
+                return False
+            except TypeError:
+                with open("report.txt", "a") as file:
+                    string = "Order: {}, Could be process order data was corrupted," \
+                             " {} - Stuffing can only be ""Polyester Fibrefill"" or ""Wool""\n"
+                    file.write(string.format(order.order_num, StuffingException))
+
+                return False
             try:
-                fabric[holiday][kwargs.get("fabric")]
-                return True
+                (fabric[holiday][kwargs.get("fabric")])
             except KeyError:
-                raise FabricException
-        elif item == "Candy":
+                raise FabricException(order)
+            finally:
+                pass
+
+        elif order.item_type == "Candy":
             pass
-        return False
+
+        return True

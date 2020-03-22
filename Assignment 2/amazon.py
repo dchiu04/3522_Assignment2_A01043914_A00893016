@@ -9,6 +9,7 @@ class Amazon:
         Store that holds items inventory, menus, and is in charge of creating and
         restocking items.
     """
+
     def __init__(self):
         self._orders = []
         self._inventory = {}
@@ -19,9 +20,9 @@ class Amazon:
         :return:
         """
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
-        op = OrderProcessor()
-        orders = op.read_file_to_orders(user + ".xlsx")
-        print("Should be printing orders", orders)
+
+        orders = OrderProcessor.read_file_to_orders(user + ".xlsx")
+        # print("Should be printing orders", orders)
 
         for i in orders:
             self._orders.append(orders[i])
@@ -50,7 +51,7 @@ class Amazon:
             item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
 
             # Initializing inventory quantity
-            self.restock_inv(item, i - 1, kwargs)
+            self.restock_inv(orders, item, i, kwargs)
         print("Successfully processed orders.")
 
     def check_quantity(self, product_id, quantity_ordered):
@@ -59,7 +60,8 @@ class Amazon:
             return True
         return False
 
-    def restock_inv(self, item, i, kwargs):
+    def restock_inv(self, orders, item, index, kwargs):
+        i = (self._orders.index(orders.get(index)))
         try:
             # Inventory has enough items, no need to create new ones
             if self.check_quantity(item.product_id, self._orders[i][0]):
@@ -88,7 +90,6 @@ class Amazon:
                 print("Product ID", i, "is: Very Low stock(", len(k), ")")
             else:
                 print("Product ID", i, "is: Out of stock (0)")
-
 
     # def error_handle(self, file, k):
     #     print("k.details[hasbatteries]: ", k.details['has_batteries'])
@@ -120,21 +121,21 @@ class Amazon:
     #             pass
     #     return True
 
-    def print_report(self):
-        date = datetime.datetime.now()
-        with open("report.txt", "a") as file:
-            file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-                       + str(date) + "\n\n")
-            print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-                  + str(date) + "\n\n")
-            for i, k in self._orders:
-                # Should be printing orders and orders with errors
-                OrderProcessor.error_handle(file, k, i)
-                print("Should be printing orders")
-                    # temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
-                    # #print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
-                    # file.write(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
-                    # file.write("\n")
+    # def print_report(self):
+    #     date = datetime.datetime.now()
+    #     with open("report.txt", "a") as file:
+    #         file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+    #                    + str(date) + "\n\n")
+    #         print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+    #               + str(date) + "\n\n")
+    #         for i, k in self._orders:
+    #             # Should be printing orders and orders with errors
+    #             OrderProcessor.error_handle(file, k, i)
+    #             print("Should be printing orders")
+    #             temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
+    #             print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+    #             file.write(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+    #             file.write("\n")
 
     def menu(self):
         cont = True
@@ -146,7 +147,7 @@ class Amazon:
             elif user == 2:
                 self.check_inv()
             else:
-                self.print_report()
+                # self.print_report()
                 cont = False
                 return
 
@@ -154,6 +155,7 @@ class Amazon:
 def main():
     store = Amazon()
     store.menu()
+    print(store._orders)
 
 
 if __name__ == '__main__':

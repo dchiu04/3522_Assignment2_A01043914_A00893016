@@ -1,3 +1,5 @@
+import math
+
 from order_processor import OrderProcessor
 import datetime
 
@@ -10,34 +12,37 @@ class Amazon:
     def process_orders(self):
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
         op = OrderProcessor()
-        self._orders = op.read_file_to_orders(user + ".xlsx")
+        orders = op.read_file_to_orders(user + ".xlsx")
+        print("Should be printing orders", orders)
 
-        for i in self._orders:
-            kwargs = {'name': self._orders[i][1].name,
-                      'desc': self._orders[i][1].details['description'],
-                      'product_id': self._orders[i][1].product_id,
-                      'has_batteries': self._orders[i][1].details['has_batteries'],
-                      'min_age': self._orders[i][1].details['min_age'],
-                      'dimensions': self._orders[i][1].details['dimensions'],
-                      'num_rooms': self._orders[i][1].details['num_rooms'],
-                      'speed': self._orders[i][1].details['speed'],
-                      'jump_height': self._orders[i][1].details['jump_height'],
-                      'has_glow': self._orders[i][1].details['has_glow'],
-                      'spider_type': self._orders[i][1].details['spider_type'],
-                      'num_sound': self._orders[i][1].details['num_sound'],
-                      'colour': self._orders[i][1].details['colour'],
-                      'has_lactose': self._orders[i][1].details['has_lactose'],
-                      'has_nuts': self._orders[i][1].details['has_nuts'],
-                      'variety': self._orders[i][1].details['variety'],
-                      'pack_size': self._orders[i][1].details['pack_size'],
-                      'stuffing': self._orders[i][1].details['stuffing'],
-                      'size': self._orders[i][1].details['size'],
-                      'fabric': self._orders[i][1].details['fabric']
+        for i in orders:
+            self._orders.append(orders[i])
+            kwargs = {'name': orders[i][1].name,
+                      'desc': orders[i][1].details['description'],
+                      'product_id': orders[i][1].product_id,
+                      'has_batteries': orders[i][1].details['has_batteries'],
+                      'min_age': orders[i][1].details['min_age'],
+                      'dimensions': orders[i][1].details['dimensions'],
+                      'num_rooms': orders[i][1].details['num_rooms'],
+                      'speed': orders[i][1].details['speed'],
+                      'jump_height': orders[i][1].details['jump_height'],
+                      'has_glow': orders[i][1].details['has_glow'],
+                      'spider_type': orders[i][1].details['spider_type'],
+                      'num_sound': orders[i][1].details['num_sound'],
+                      'colour': orders[i][1].details['colour'],
+                      'has_lactose': orders[i][1].details['has_lactose'],
+                      'has_nuts': orders[i][1].details['has_nuts'],
+                      'variety': orders[i][1].details['variety'],
+                      'pack_size': orders[i][1].details['pack_size'],
+                      'stuffing': orders[i][1].details['stuffing'],
+                      'size': orders[i][1].details['size'],
+                      'fabric': orders[i][1].details['fabric']
                       }
-            item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
+
+            item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
 
             # Initializing inventory quantity
-            self.restock_inv(item, i, kwargs)
+            self.restock_inv(item, i - 1, kwargs)
         print("Successfully processed orders.")
 
     def check_quantity(self, product_id, quantity_ordered):
@@ -68,21 +73,60 @@ class Amazon:
     def check_inv(self):
         for i, k in self._inventory.items():
             if len(k) >= 10:
-                print("Product ID", i, "is: In Stock(",len(k),")")
+                print("Product ID", i, "is: In Stock(", len(k), ")")
             elif 10 > len(k) > 3:
-                print("Product ID", i, "is: Low stock(",len(k),")")
+                print("Product ID", i, "is: Low stock(", len(k), ")")
             elif 0 < len(k) <= 3:
-                print("Product ID", i, "is: Very Low stock(",len(k),")")
+                print("Product ID", i, "is: Very Low stock(", len(k), ")")
             else:
-                print("Out of stock (0)")
+                print("Product ID", i, "is: Out of stock (0)")
 
-    def error_handle(self):
-        for x in self._inventory
+
+    # def error_handle(self, file, k):
+    #     print("k.details[hasbatteries]: ", k.details['has_batteries'])
+    #
+    #     # Has_Batteries
+    #     if math.isnan(k.details['has_batteries']):
+    #         print("inside math is nan")
+    #         if k.details['has_batteries'] != 'Y' and k.details['has_batteries'] != 'N':
+    #             string = "Order: {}, Could be process order data was corrupted," \
+    #                   " InvalidDataError - Has_Batteries can only be ""Y"" or ""N""\n"
+    #             file.write(string.format(k.order_num))
+    #             return False
+    #
+    #     # Min_Age
+    #     if 'min_age' in k.details['min_age']:
+    #         try:
+    #             k.details['min_age'] += 0
+    #         except TypeError :
+    #             string = "Order: {}, Could be process order data was corrupted," \
+    #                   " InvalidDataError - Min_Age can only be a number\n"
+    #             file.write(string.format(k.order_num))
+    #             return False
+    #         finally:
+    #             pass
+    #
+    #     # Dimensions
+    #     if 'dimensions' in k.details['dimensions']:
+    #         if k.details['dimensions'].format(':,:'):
+    #             pass
+    #     return True
 
     def print_report(self):
         date = datetime.datetime.now()
-        print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-              + str(date) + "\n\n")
+        with open("report.txt", "a") as file:
+            file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                       + str(date) + "\n\n")
+            print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                  + str(date) + "\n\n")
+            for i, k in self._orders:
+                # Should be printing orders and orders with errors
+                OrderProcessor.error_handle(file, k)
+                print("Should be printing orders")
+                    # temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
+                    # #print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+                    # file.write(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+                    # file.write("\n")
 
     def menu(self):
         cont = True

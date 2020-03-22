@@ -13,7 +13,7 @@ class Order:
         return self._order_num
 
     @property
-    def type(self):
+    def item_type(self):
         return self._item_type
 
     @property

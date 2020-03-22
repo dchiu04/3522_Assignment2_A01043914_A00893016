@@ -13,6 +13,7 @@ class Amazon:
     def __init__(self):
         self._orders = []
         self._inventory = {}
+        self._print_list = []
 
     def process_orders(self):
         """
@@ -21,7 +22,7 @@ class Amazon:
         """
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
 
-        orders = OrderProcessor.read_file_to_orders(user + ".xlsx")
+        (orders, self._print_list) = OrderProcessor.read_file_to_orders(user + ".xlsx")
         # print("Should be printing orders", orders)
 
         for i in orders:
@@ -121,21 +122,25 @@ class Amazon:
     #             pass
     #     return True
 
-    # def print_report(self):
-    #     date = datetime.datetime.now()
-    #     with open("report.txt", "a") as file:
-    #         file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-    #                    + str(date) + "\n\n")
-    #         print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-    #               + str(date) + "\n\n")
-    #         for i, k in self._orders:
-    #             # Should be printing orders and orders with errors
-    #             OrderProcessor.error_handle(file, k, i)
-    #             print("Should be printing orders")
-    #             temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
-    #             print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
-    #             file.write(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
-    #             file.write("\n")
+    def print_report(self):
+        date = datetime.datetime.now()
+        with open("report.txt", "a") as file:
+            file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                       + str(date) + "\n\n")
+            print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                  + str(date) + "\n\n")
+            # for i, k in self._orders:
+            #     # Should be printing orders and orders with errors
+            #     OrderProcessor.error_handle(file, k, i)
+            #     print("Should be printing orders")
+            #     temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
+            #     print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+            #     file.write(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
+            #     file.write("\n")
+            for i in self._print_list:
+                # Should be printing orders and orders with errors
+                file.write(i)
+                file.write("\n")
 
     def menu(self):
         cont = True
@@ -147,7 +152,7 @@ class Amazon:
             elif user == 2:
                 self.check_inv()
             else:
-                # self.print_report()
+                self.print_report()
                 cont = False
                 return
 
@@ -155,7 +160,7 @@ class Amazon:
 def main():
     store = Amazon()
     store.menu()
-    print(store._orders)
+    print(store._print_list)
 
 
 if __name__ == '__main__':

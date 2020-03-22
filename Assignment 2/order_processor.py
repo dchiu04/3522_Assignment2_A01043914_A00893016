@@ -22,7 +22,7 @@ class OrderProcessor:
         :param fn: given excel file
         :return: all_orders list of dictionary
         """
-
+        print_orders = []
         all_orders = {}
         if Path(fn).is_file():
             orders = pd.read_excel(fn).to_dict(orient="record")
@@ -55,15 +55,15 @@ class OrderProcessor:
                 # # Only add valid orders to the store
                 (message, condition) = OrderProcessor.error_handle(order, holiday)
                 if condition:
-                    print(order.order_num)
-                    print("pass")
+                    temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
+                    print_orders.append(temp.format(order.order_num, order.item_type, order.product_id, order.name, i.get("quantity")))
                     all_orders[order.order_num] = [i.get('quantity'), order]
                 else:
-                    print(message)
+                    print_orders.append(message)
                 # all_orders[order.order_num] = [i.get('quantity'), order]
                 # Used to print out report only
 
-        return all_orders
+        return all_orders, print_orders
 
     @staticmethod
     def factory_mapping(order, holiday, item):

@@ -1,10 +1,27 @@
 class Candy:
-    def __init__(self, nuts, lactose, name, desc, prod_id):
+    def __init__(self, nuts, lactose, name, desc, product_id):
         self._nuts = nuts
         self._lactose = lactose
         self._name = name
         self._desc = desc
-        self._prod_id = prod_id
+        self._product_id = product_id
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def product_id(self):
+        return self._product_id
+
+    @property
+    def desc(self):
+        return self._desc
+
+    def __str__(self):
+        return f"Name: {self._name} ----\n" \
+               f"Product ID: {self._product_id}\n" \
+               f"Description: {self._desc}\n"
 
 
 class PumpkinToffee(Candy):
@@ -14,7 +31,7 @@ class PumpkinToffee(Candy):
                          kwargs.get("lactose"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id")
+                         kwargs.get("product_id")
                          )
         self._variety = variety
 
@@ -26,7 +43,7 @@ class CandyCane(Candy):
                          kwargs.get("lactose"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id")
+                         kwargs.get("product_id")
                          )
         self._colour = colour
 
@@ -38,6 +55,6 @@ class CremeEggs(Candy):
                          kwargs.get("lactose"),
                          kwargs.get("name"),
                          kwargs.get("desc"),
-                         kwargs.get("prod_id")
+                         kwargs.get("product_id")
                          )
         self._pack_size = pack_size

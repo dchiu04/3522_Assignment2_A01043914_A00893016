@@ -2,15 +2,33 @@ import abc
 
 
 class Toy(abc.ABC):
-    def __init__(self, battery, min_age, name, desc, prod_id):
+    def __init__(self, battery, min_age, name, desc, product_id):
         self._battery = battery
         self._min_age = min_age
         self._name = name
         self._desc = desc
-        self._prod_id = prod_id
+        self._product_id = product_id
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def product_id(self):
+        return self._product_id
+
+    @property
+    def desc(self):
+        return self._desc
 
     def error_handle(self):
         return True
+
+    def __str__(self):
+        return f"Name: {self._name} ----\n" \
+               f"Product ID: {self._product_id}\n" \
+               f"Description: {self._desc}\n"
+
 
 class SantaWorkshop(Toy):
     def __init__(self, dimensions, num_rooms, **kwargs):
@@ -19,7 +37,7 @@ class SantaWorkshop(Toy):
             kwargs.get("min_age"),
             kwargs.get("name"),
             kwargs.get("desc"),
-            kwargs.get("prod_id")
+            kwargs.get("product_id")
         )
         self._dimensions = dimensions
         self._num_rooms = num_rooms
@@ -45,7 +63,7 @@ class Spider(Toy):
             kwargs.get("min_age"),
             kwargs.get("name"),
             kwargs.get("desc"),
-            kwargs.get("prod_id")
+            kwargs.get("product_id")
         )
         self._speed = speed
         self._jump = jump
@@ -73,7 +91,7 @@ class RobotBunny(Toy):
             kwargs.get("min_age"),
             kwargs.get("name"),
             kwargs.get("desc"),
-            kwargs.get("prod_id")
+            kwargs.get("product_id")
         )
         self._num_sound = num_sound
         self._colour = colour

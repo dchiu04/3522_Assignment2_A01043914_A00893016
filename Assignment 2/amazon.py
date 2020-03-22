@@ -34,7 +34,6 @@ class Amazon:
                       'size': self._orders[i][1].details['size'],
                       'fabric': self._orders[i][1].details['fabric']
                       }
-
             item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
 
             # Initializing inventory quantity
@@ -69,13 +68,16 @@ class Amazon:
     def check_inv(self):
         for i, k in self._inventory.items():
             if len(k) >= 10:
-                print("Product ID", "is: In Stock(",len(k),")")
+                print("Product ID", i, "is: In Stock(",len(k),")")
             elif 10 > len(k) > 3:
                 print("Product ID", i, "is: Low stock(",len(k),")")
             elif 0 < len(k) <= 3:
                 print("Product ID", i, "is: Very Low stock(",len(k),")")
             else:
                 print("Out of stock (0)")
+
+    def error_handle(self):
+        for x in self._inventory
 
     def print_report(self):
         date = datetime.datetime.now()

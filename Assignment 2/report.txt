@@ -1,0 +1,62 @@
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-21 20:04:57.527860
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-21 20:07:26.270970
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-21 20:09:58.510857
+
+Order: 1, Item: Toy, Product ID: C1230T, Name Santas Workshop - Essentials Edition, Quantity: 90Order: 2, Item: StuffedAnimal, Product ID: E2446E, Name Easter Bunny with Top Hat, Quantity: 2Order: 3, Item: Toy, Product ID: C1256T, Name Santas Workshop - Deluxe Edition, Quantity: 98Order: 4, Item: Toy, Product ID: E4835T, Name Mr. Hoppers, Quantity: 80Order: 5, Item: Toy, Product ID: H9484T, Name Terrifying Tarantula, Quantity: 100Order: 6, Item: Candy, Product ID: E9451C, Name Crème Eggs - Large, Quantity: 50Order: 7, Item: StuffedAnimal, Product ID: H4443S, Name Skello the Tap Dancer, Quantity: 97Order: 8, Item: StuffedAnimal, Product ID: C8311S, Name Rudolph the Red Nosed Reindeer, Quantity: 99Order: 9, Item: Candy, Product ID: C5510C, Name Candy Canes - Green, Quantity: 40Order: 10, Item: StuffedAnimal, Product ID: E0012S, Name Easter Bunny with Beach Attire, Quantity: 5Order: 11, Item: Toy, Product ID: H2345T, Name Howling Wolf Spider, Quantity: 4Order: 12, Item: Toy, Product ID: H0983T, Name Tiny Tarantula, Quantity: 1Order: 13, Item: Candy, Product ID: C7777C, Name Candy Canes - Red, Quantity: 10Order: 14, Item: Candy, Product ID: H1003C, Name Seas Salt Pumpkin Caramel Toffee, Quantity: 13AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-21 20:10:59.958655
+
+Order: 1, Item: Toy, Product ID: C1230T, Name Santas Workshop - Essentials Edition, Quantity: 90
+Order: 2, Item: StuffedAnimal, Product ID: E2446E, Name Easter Bunny with Top Hat, Quantity: 2
+Order: 3, Item: Toy, Product ID: C1256T, Name Santas Workshop - Deluxe Edition, Quantity: 98
+Order: 4, Item: Toy, Product ID: E4835T, Name Mr. Hoppers, Quantity: 80
+Order: 5, Item: Toy, Product ID: H9484T, Name Terrifying Tarantula, Quantity: 100
+Order: 6, Item: Candy, Product ID: E9451C, Name Crème Eggs - Large, Quantity: 50
+Order: 7, Item: StuffedAnimal, Product ID: H4443S, Name Skello the Tap Dancer, Quantity: 97
+Order: 8, Item: StuffedAnimal, Product ID: C8311S, Name Rudolph the Red Nosed Reindeer, Quantity: 99
+Order: 9, Item: Candy, Product ID: C5510C, Name Candy Canes - Green, Quantity: 40
+Order: 10, Item: StuffedAnimal, Product ID: E0012S, Name Easter Bunny with Beach Attire, Quantity: 5
+Order: 11, Item: Toy, Product ID: H2345T, Name Howling Wolf Spider, Quantity: 4
+Order: 12, Item: Toy, Product ID: H0983T, Name Tiny Tarantula, Quantity: 1
+Order: 13, Item: Candy, Product ID: C7777C, Name Candy Canes - Red, Quantity: 10
+Order: 14, Item: Candy, Product ID: H1003C, Name Seas Salt Pumpkin Caramel Toffee, Quantity: 13
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-21 20:11:39.158726
+
+Order: 1, Item: Toy, Product ID: C1230T, Name Santas Workshop - Essentials Edition, Quantity: 90
+Order: 2, Item: StuffedAnimal, Product ID: E2446E, Name Easter Bunny with Top Hat, Quantity: 2
+Order: 3, Item: Toy, Product ID: C1256T, Name Santas Workshop - Deluxe Edition, Quantity: 98
+Order: 4, Item: Toy, Product ID: E4835T, Name Mr. Hoppers, Quantity: 80
+Order: 5, Item: Toy, Product ID: H9484T, Name Terrifying Tarantula, Quantity: 100
+Order: 6, Item: Candy, Product ID: E9451C, Name Crème Eggs - Large, Quantity: 50
+Order: 7, Item: StuffedAnimal, Product ID: H4443S, Name Skello the Tap Dancer, Quantity: 97
+Order: 8, Item: StuffedAnimal, Product ID: C8311S, Name Rudolph the Red Nosed Reindeer, Quantity: 99
+Order: 9, Item: Candy, Product ID: C5510C, Name Candy Canes - Green, Quantity: 40
+Order: 10, Item: StuffedAnimal, Product ID: E0012S, Name Easter Bunny with Beach Attire, Quantity: 5
+Order: 11, Item: Toy, Product ID: H2345T, Name Howling Wolf Spider, Quantity: 4
+Order: 12, Item: Toy, Product ID: H0983T, Name Tiny Tarantula, Quantity: 1
+Order: 13, Item: Candy, Product ID: C7777C, Name Candy Canes - Red, Quantity: 10
+Order: 14, Item: Candy, Product ID: H1003C, Name Seas Salt Pumpkin Caramel Toffee, Quantity: 13
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-21 20:15:16.965849
+
+Order: 1, Item: Toy, Product ID: C1230T, Name Santas Workshop - Essentials Edition, Quantity: 90
+Order: 2, Item: StuffedAnimal, Product ID: E2446E, Name Easter Bunny with Top Hat, Quantity: 2
+Order: 3, Item: Toy, Product ID: C1256T, Name Santas Workshop - Deluxe Edition, Quantity: 98
+Order: 4, Item: Toy, Product ID: E4835T, Name Mr. Hoppers, Quantity: 80
+Order: 5, Item: Toy, Product ID: H9484T, Name Terrifying Tarantula, Quantity: 100
+Order: 6, Item: Candy, Product ID: E9451C, Name Crème Eggs - Large, Quantity: 50
+Order: 7, Item: StuffedAnimal, Product ID: H4443S, Name Skello the Tap Dancer, Quantity: 97
+Order: 8, Item: StuffedAnimal, Product ID: C8311S, Name Rudolph the Red Nosed Reindeer, Quantity: 99
+Order: 9, Item: Candy, Product ID: C5510C, Name Candy Canes - Green, Quantity: 40
+Order: 10, Item: StuffedAnimal, Product ID: E0012S, Name Easter Bunny with Beach Attire, Quantity: 5
+Order: 11, Item: Toy, Product ID: H2345T, Name Howling Wolf Spider, Quantity: 4
+Order: 12, Item: Toy, Product ID: H0983T, Name Tiny Tarantula, Quantity: 1
+Order: 13, Item: Candy, Product ID: C7777C, Name Candy Canes - Red, Quantity: 10
+Order: 14, Item: Candy, Product ID: H1003C, Name Seas Salt Pumpkin Caramel Toffee, Quantity: 13

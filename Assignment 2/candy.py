@@ -28,6 +28,9 @@ class Candy:
 
 
 class PumpkinToffee(Candy):
+    """
+        Halloween themed candy. Requires variety.
+    """
     def __init__(self, variety, **kwargs):
         super().__init__(
                          kwargs.get("nuts"),
@@ -40,6 +43,9 @@ class PumpkinToffee(Candy):
 
 
 class CandyCane(Candy):
+    """
+        Christmas themed candy. Requires colour.
+    """
     def __init__(self, colour, **kwargs):
         super().__init__(
                          kwargs.get("nuts"),
@@ -52,6 +58,9 @@ class CandyCane(Candy):
 
 
 class CremeEggs(Candy):
+    """
+        Easter themed candy. Requires pack size.
+    """
     def __init__(self, pack_size, **kwargs):
         super().__init__(
                          kwargs.get("nuts"),

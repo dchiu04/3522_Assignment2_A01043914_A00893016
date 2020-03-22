@@ -1,4 +1,7 @@
 class Candy:
+    """
+        Base Candy class that all candies inherit from.
+    """
     def __init__(self, nuts, lactose, name, desc, product_id):
         self._nuts = nuts
         self._lactose = lactose

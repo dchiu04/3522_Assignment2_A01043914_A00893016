@@ -1,4 +1,8 @@
 class Order:
+    """
+        A dictionary designating to keeping track of orders made to
+        the store Amazon.
+    """
 
     def __init__(self, order_num, product_id, item_type, name, prod_details):
         self._order_num = order_num

@@ -1,4 +1,7 @@
 class Animal:
+    """
+        Base Animal class that all animals inherit from.
+    """
     def __init__(self, stuffing, size, fabric, name, desc, product_id):
         self._stuffing = stuffing
         self._size = size
@@ -26,6 +29,9 @@ class Animal:
 
 
 class Skeleton(Animal):
+    """
+        Halloween themed stuffed animal.
+    """
     def __init__(self, has_glow, **kwargs):
         super().__init__(
             kwargs.get("stuffing"),
@@ -39,6 +45,9 @@ class Skeleton(Animal):
 
 
 class Reindeer(Animal):
+    """
+        Christmas themed stuffed animal.
+    """
     def __init__(self, has_glow, **kwargs):
         super().__init__(
             kwargs.get("stuffing"),
@@ -52,6 +61,9 @@ class Reindeer(Animal):
 
 
 class Bunny(Animal):
+    """
+        Easter themed stuffed animal.
+    """
     def __init__(self, colour, **kwargs):
         super().__init__(
             kwargs.get("stuffing"),

@@ -302,3 +302,7 @@ Order: 11, Item: Toy, Product ID: H2345T, Name Howling Wolf Spider, Quantity: 4
 Order: 12, Item: Toy, Product ID: H0983T, Name Tiny Tarantula, Quantity: 1
 Order: 13, Could be process order data was corrupted, InvalidDataError - Has_Batteries can only be Y or N
 Order: 14, Could be process order data was corrupted, InvalidDataError - Has_Batteries can only be Y or N
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-22 01:05:21.776321
+

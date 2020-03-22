@@ -39,7 +39,6 @@ class AnimalColourException(Exception):
         file.write(string.format(k._order_num, Exception))
 
 
-
 class ToyColourException(Exception):
     def __init__(self, file, k):
         string = "Order: {}, Could be process order data was corrupted," \

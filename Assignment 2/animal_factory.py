@@ -3,6 +3,9 @@ from animal import Animal, Skeleton, Bunny, Reindeer
 
 
 class AnimalFactory(abc.ABC):
+    """
+        Base factory that all animal factories inherit from.
+    """
     @abc.abstractmethod
     def create(self, **kwargs):
         pass

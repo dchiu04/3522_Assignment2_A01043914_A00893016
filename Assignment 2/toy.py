@@ -1,7 +1,9 @@
 import abc
 
-
 class Toy(abc.ABC):
+    """
+        Base Toy class that all toys inherit from.
+    """
     def __init__(self, battery, min_age, name, desc, product_id):
         self._battery = battery
         self._min_age = min_age
@@ -69,19 +71,6 @@ class Spider(Toy):
         self._jump = jump
         self._glow = glow
         self._species = species
-
-    def error_handle(self):
-        try:
-            self._dimensions += 0
-        except TypeError:
-            print("InvalidDataError - Dimensions must be in the format (width, height).")
-            return False
-        try:
-            self._num_rooms += 0
-        except TypeError:
-            print("InvalidDataError - Number of rooms must be an int.")
-            return False
-        return True
 
 
 class RobotBunny(Toy):

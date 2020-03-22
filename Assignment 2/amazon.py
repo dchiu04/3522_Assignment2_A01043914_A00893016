@@ -5,11 +5,19 @@ import datetime
 
 
 class Amazon:
+    """
+        Store that holds items inventory, menus, and is in charge of creating and
+        restocking items.
+    """
     def __init__(self):
         self._orders = []
         self._inventory = {}
 
     def process_orders(self):
+        """
+            Converts the excel file into order items.
+        :return:
+        """
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
         op = OrderProcessor()
         orders = op.read_file_to_orders(user + ".xlsx")
@@ -59,7 +67,7 @@ class Amazon:
                     item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
                     self._inventory[item.product_id].pop()
             else:
-                # Create only the left over items after minusing the initial value (100) from the order quantity
+                # Create only the left over items after decreasing the initial value (100) from the order quantity
                 for x in range(100 - self._orders[i][0]):
                     item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
                     self._inventory[item.product_id].append(item)
@@ -121,7 +129,7 @@ class Amazon:
                   + str(date) + "\n\n")
             for i, k in self._orders:
                 # Should be printing orders and orders with errors
-                OrderProcessor.error_handle(file, k)
+                OrderProcessor.error_handle(file, k, i)
                 print("Should be printing orders")
                     # temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
                     # #print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))

@@ -4,64 +4,41 @@ import datetime
 
 class Amazon:
     def __init__(self):
+        self._orders = []
         self._inventory = {}
-        self._orders = None
 
     def process_orders(self):
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
         op = OrderProcessor()
-        orders = op.read_file_to_orders(user + ".xlsx")
-        self._orders = orders
-        # print("SHOULD BE PRINTING ORDERS")
-        # print(orders)
-        for i in orders:
-            kwargs = {'name': orders[i][1].name,
-                      'desc': orders[i][1].details['description'],
-                      'product_id': orders[i][1].product_id,
-                      'has_batteries': orders[i][1].details['has_batteries'],
-                      'min_age': orders[i][1].details['min_age'],
-                      'dimensions': orders[i][1].details['dimensions'],
-                      'num_rooms': orders[i][1].details['num_rooms'],
-                      'speed': orders[i][1].details['speed'],
-                      'jump_height': orders[i][1].details['jump_height'],
-                      'has_glow': orders[i][1].details['has_glow'],
-                      'spider_type': orders[i][1].details['spider_type'],
-                      'num_sound': orders[i][1].details['num_sound'],
-                      'colour': orders[i][1].details['colour'],
-                      'has_lactose': orders[i][1].details['has_lactose'],
-                      'has_nuts': orders[i][1].details['has_nuts'],
-                      'variety': orders[i][1].details['variety'],
-                      'pack_size': orders[i][1].details['pack_size'],
-                      'stuffing': orders[i][1].details['stuffing'],
-                      'size': orders[i][1].details['size'],
-                      'fabric': orders[i][1].details['fabric']
+        self._orders = op.read_file_to_orders(user + ".xlsx")
+
+        for i in self._orders:
+            kwargs = {'name': self._orders[i][1].name,
+                      'desc': self._orders[i][1].details['description'],
+                      'product_id': self._orders[i][1].product_id,
+                      'has_batteries': self._orders[i][1].details['has_batteries'],
+                      'min_age': self._orders[i][1].details['min_age'],
+                      'dimensions': self._orders[i][1].details['dimensions'],
+                      'num_rooms': self._orders[i][1].details['num_rooms'],
+                      'speed': self._orders[i][1].details['speed'],
+                      'jump_height': self._orders[i][1].details['jump_height'],
+                      'has_glow': self._orders[i][1].details['has_glow'],
+                      'spider_type': self._orders[i][1].details['spider_type'],
+                      'num_sound': self._orders[i][1].details['num_sound'],
+                      'colour': self._orders[i][1].details['colour'],
+                      'has_lactose': self._orders[i][1].details['has_lactose'],
+                      'has_nuts': self._orders[i][1].details['has_nuts'],
+                      'variety': self._orders[i][1].details['variety'],
+                      'pack_size': self._orders[i][1].details['pack_size'],
+                      'stuffing': self._orders[i][1].details['stuffing'],
+                      'size': self._orders[i][1].details['size'],
+                      'fabric': self._orders[i][1].details['fabric']
                       }
 
-            # key is the product id, value is the quantity
-            # print(item)
+            item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
 
-            item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
-            # CREATE 100 OF EACH ORDER ITEM HERE. old method no work
             # Initializing inventory quantity
-            print(item.product_id)
-            try:
-                if self.check_quantity(item.product_id, orders[i][0]):
-                    for x in range(orders[i][0]):
-                        item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
-                        self._inventory[item.product_id].pop()
-                else:
-                    for x in range(100 - orders[i][0]):
-                        item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
-                        self._inventory[item.product_id].append(item)
-            except KeyError:
-                self._inventory[item.product_id] = []
-                for x in range(100 - orders[i][0]):
-                    item = orders[i][1].factory.create(orders[i][1].factory, **kwargs)
-                    self._inventory[item.product_id].append(item)
-
-        # for (key, value) in self._inventory:
-        #     print(key, value)
-        #     order.factory.create(kwargs)
+            self.restock_inv(item, i, kwargs)
         print("Successfully processed orders.")
 
     def check_quantity(self, product_id, quantity_ordered):
@@ -70,48 +47,36 @@ class Amazon:
             return True
         return False
 
-    # def init_quantity(self, product_id, quantity_ordered):
-    #     quantity = 0
-    #     try:
-    #         quantity = self._inventory[product_id][0]
-    #     except TypeError:
-    #         quantity = 0
-    #     except KeyError:
-    #         quantity = 0
-    #     finally:
-    #         if quantity > quantity_ordered:
-    #             return True
-    #         else:
-    #             return False
-
-    # def restock_inv(self, prod_id):
-    #     for i in self._inventory:
-    #         if i.prod_id == prod_id:
-    #             print(i.name + " " + i.prod_id)
-    #
-    #             # THIS CODE HERE CAN BE FOR RESTOCK_INV()
-    #             # if i.quantity == 0:
-    #             #     i.quantity += 100
-    #             #     print("increased quantity by 100")
-    #             # [print(d) for d in self._inventory if d['item'] == 'Toy' and d['holiday'] == 'Christmas']
-    #             # for i in self._inventory:
-    #             #     if prod_id == i:
-    #             #         if i.value == 0:
-    #             #             self._inventory[i].value += 100
+    def restock_inv(self, item, i, kwargs):
+        try:
+            # Inventory has enough items, no need to create new ones
+            if self.check_quantity(item.product_id, self._orders[i][0]):
+                for x in range(self._orders[i][0]):
+                    item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
+                    self._inventory[item.product_id].pop()
+            else:
+                # Create only the left over items after minusing the initial value (100) from the order quantity
+                for x in range(100 - self._orders[i][0]):
+                    item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
+                    self._inventory[item.product_id].append(item)
+        except KeyError:
+            # Inventory did not have the item already (initial)
+            self._inventory[item.product_id] = []
+            for x in range(100 - self._orders[i][0]):
+                item = self._orders[i][1].factory.create(self._orders[i][1].factory, **kwargs)
+                self._inventory[item.product_id].append(item)
 
     def check_inv(self):
         for i, k in self._inventory.items():
-            print(len(k))
             if len(k) >= 10:
-                print("In Stock (10 or more)")
+                print("Product ID", "is: In Stock(",len(k),")")
             elif 10 > len(k) > 3:
-                print("Low stock (less than 10 and bigger than 3)")
+                print("Product ID", i, "is: Low stock(",len(k),")")
             elif 0 < len(k) <= 3:
-                print("Very Low stock (less than 3")
+                print("Product ID", i, "is: Very Low stock(",len(k),")")
             else:
                 print("Out of stock (0)")
 
-    @staticmethod
     def print_report(self):
         date = datetime.datetime.now()
         print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
@@ -135,10 +100,7 @@ class Amazon:
 def main():
     store = Amazon()
     store.menu()
-    # for i, k in store._inventory.items():
-    #     print(k)
-    #     for x in k:
-    #         print(x)
+
 
 if __name__ == '__main__':
     main()

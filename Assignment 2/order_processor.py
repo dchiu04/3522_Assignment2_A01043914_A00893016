@@ -90,7 +90,7 @@ class OrderProcessor:
 
     @staticmethod
     def error_handle(order, holiday):
-        print(order.details['variety'])
+        print(order.details['colour'])
         try:
             if holiday == 'Christmas' or holiday == 'Easter' or \
                     holiday == 'Halloween':
@@ -153,7 +153,7 @@ class OrderProcessor:
             return "has_glow can only be ""Y"" or ""N", False
         try:
             if order.details['spider_type'] == 'Tarantula' or order.details['spider_type'] == 'Wolf Spider' \
-                    or math.isnan(order.details['has_glow']):
+                    or math.isnan(order.details['spider_type']):
                 pass
             else:
                 return "spider_type can only be ""Tarantula"" or ""Wolf Spider", False
@@ -169,12 +169,12 @@ class OrderProcessor:
         try:
             if order.details['colour'] == 'Grey' or order.details['colour'] == 'Orange' or order.details[
                 'colour'] == 'Green' or order.details['colour'] == 'Pink' or order.details['colour'] == 'Red' \
-                    or math.isnan(order.details['has_glow']):
+                    or math.isnan(order.details['colour']):
                 pass
             else:
-                return "colour can only be ""Grey"" or ""Orange""or ""Green""or ""Pink""or ""Red", False
+                return "colour can only be ""Grey"" or ""Orange"" or ""Green"" or ""Pink"" or ""Red", False
         except TypeError:
-            return "colour can only be ""Grey"" or ""Orange""or ""Green""or ""Pink""or ""Red", False
+            return "colour can only be ""Grey"" or ""Orange"" or ""Green"" or ""Pink"" or ""Red", False
         try:
             if order.details['has_lactose'] == 'Y' or order.details['has_lactose'] == 'N' \
                     or math.isnan(order.details['has_lactose']):
@@ -214,7 +214,7 @@ class OrderProcessor:
         except TypeError:
             return "stuffing can only be ""Polyester Fibrefill"" or ""Wool", False
         try:
-            if order.details['size'] == 'S' or order.details['size'] == 'M' or order.details['size'] == 'M' \
+            if order.details['size'] == 'S' or order.details['size'] == 'M' or order.details['size'] == 'L' \
                     or math.isnan(order.details['size']):
                 pass
             else:

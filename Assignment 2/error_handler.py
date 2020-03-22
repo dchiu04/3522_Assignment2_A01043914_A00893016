@@ -174,22 +174,34 @@ class ErrorHandler:
 
     @staticmethod
     def error_check(holiday, order, kwargs):
+        print(order.item_type)
         if order.item_type == "Toy":
             try:
-                (battery[holiday][kwargs.get("has_batteries")])
-            except KeyError:
-                raise BatteryException(order)
-            finally:
-                pass
-        elif order.item_type == "StuffedAnimal":
-            try:
-                (stuffing[holiday][kwargs.get("stuffing")])
+                var = (battery[holiday][kwargs.get("has_batteries")])
                 math.isnan(kwargs.get("stuffing"))
             except KeyError:
-                raise StuffingException(order)
+                with open("report.txt", "a") as file:
+                    string = "Order: {}, Could be process order data was corrupted," \
+                             " {} - Has Batteries can only be ""Y"" or ""N""\n"
+                    file.write(string.format(order.order_num, BatteryException))
+                return False
+        elif order.item_type == "StuffedAnimal":
+            try:
+                var = (stuffing[holiday][kwargs.get("stuffing")])
+                math.isnan(kwargs.get("stuffing"))
+            except KeyError:
+                with open("report.txt", "a") as file:
+                    string = "Order: {}, Could be process order data was corrupted," \
+                             " {} - Stuffing can only be ""Polyester Fibrefill"" or ""Wool""\n"
+                    file.write(string.format(order.order_num, StuffingException))
+
                 return False
             except TypeError:
-                raise StuffingException(order)
+                with open("report.txt", "a") as file:
+                    string = "Order: {}, Could be process order data was corrupted," \
+                             " {} - Stuffing can only be ""Polyester Fibrefill"" or ""Wool""\n"
+                    file.write(string.format(order.order_num, StuffingException))
+
                 return False
             try:
                 (fabric[holiday][kwargs.get("fabric")])

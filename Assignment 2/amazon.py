@@ -22,7 +22,7 @@ class Amazon:
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
 
         orders = OrderProcessor.read_file_to_orders(user + ".xlsx")
-        print("Should be printing orders", orders)
+        # print("Should be printing orders", orders)
 
         for i in orders:
             self._orders.append(orders[i])
@@ -155,6 +155,7 @@ class Amazon:
 def main():
     store = Amazon()
     store.menu()
+    print(store._orders)
 
 
 if __name__ == '__main__':

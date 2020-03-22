@@ -306,3 +306,92 @@ Order: 14, Could be process order data was corrupted, InvalidDataError - Has_Bat
 AMAZON - DAILY TRANSACTION REPORT (DRT)
 2020-03-22 01:05:21.776321
 
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-22 03:51:05.553120
+
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-22 03:51:59.312989
+
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-22 03:52:25.736597
+
+
+AMAZON - DAILY TRANSACTION REPORT (DRT)
+2020-03-22 03:55:15.928893
+
+Order: 2, Could be process order data was corrupted, <class 'Exception'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 7, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 8, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 10, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool
+Order: 2, Could be process order data was corrupted, <class 'error_handler.StuffingException'> - Stuffing can only be Polyester Fibrefill or Wool

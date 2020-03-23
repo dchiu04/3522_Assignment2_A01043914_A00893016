@@ -6,12 +6,17 @@ from candy_factory import CandyCaneFactory, CremeEggsFactory, PumpkinToffeeFacto
 from order import Order
 from toy_factory import SantaWorkshopFactory, SpiderFactory, RobotBunnyFactory
 
+# Used to map all factories to their corresponding item and holiday
 factory_dict = {"Toy": {"Christmas": SantaWorkshopFactory, "Easter": RobotBunnyFactory, "Halloween": SpiderFactory},
                 "StuffedAnimal": {"Christmas": ReindeerFactory, "Easter": BunnyFactory, "Halloween": SkeletonFactory},
                 "Candy": {"Christmas": CandyCaneFactory, "Easter": CremeEggsFactory, "Halloween": PumpkinToffeeFactory}}
 
 
 class OrderProcessor:
+    """
+        Processes the given excel file and turns the data into order objects. Also handles any potential
+        input errors.
+    """
 
     @staticmethod
     def read_file_to_orders(fn):
@@ -20,14 +25,20 @@ class OrderProcessor:
         :param fn: given excel file
         :return: all_orders list of dictionary
         """
+
+        # Used to store all orders regardless of their validity
         print_orders = []
 
+        # Used to store all valid orders
         all_orders = {}
+
         if Path(fn).is_file():
             orders = pd.read_excel(fn).to_dict(orient="record")
+
             for i in orders:
                 holiday = i.get("holiday")
                 item = i.get("item")
+
                 keys = ['description',
                         'has_batteries',
                         'min_age',
@@ -46,7 +57,9 @@ class OrderProcessor:
                         'stuffing',
                         'size',
                         'fabric']
+
                 details = {x: i[x] for x in keys}
+
                 order = Order(i.get("order_number"), i.get("product_id"), item, i.get("name"),
                               details)
                 OrderProcessor.factory_mapping(order, holiday, item)
@@ -54,6 +67,8 @@ class OrderProcessor:
                 # Only add valid orders to the store
                 (message, condition) = OrderProcessor.error_handle(order, holiday)
 
+                # Report is appended here
+                # Append only valid orders to the list returned to Amazon
                 if condition:
                     temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
                     print_orders.append(
@@ -61,6 +76,7 @@ class OrderProcessor:
                     all_orders[order.order_num] = [i.get('quantity'), order]
                 else:
                     print_orders.append(message)
+
         return all_orders, print_orders
 
     def factory_mapping(order, holiday, item):

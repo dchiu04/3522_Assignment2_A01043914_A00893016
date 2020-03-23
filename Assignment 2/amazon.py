@@ -1,3 +1,4 @@
+from pathlib import Path
 
 from order_processor import OrderProcessor
 import datetime
@@ -5,23 +6,39 @@ import datetime
 
 class Amazon:
     """
-        Store that holds items inventory, menus, and is in charge of creating and
+        Billion dollar company (Store) that holds items inventory, menus, and is in charge of creating and
         restocking items.
     """
 
     def __init__(self):
+
+        # Holds all valid orders taken from the given excel file
         self._orders = []
+
+        # Holds all current items inside the store Amazon
         self._inventory = {}
+
+        # Holds all orders taken from the given excel file
         self._print_list = []
 
     def process_orders(self):
         """
             Converts the excel file into order items using order_processor.
         """
-        user = input("Enter the name of the excel file to be processed(.xlsx): ")
 
+        try:
+            cont = True
+            while cont:
+                user = input("Enter the name of the excel file to be processed(.xlsx): ")
+                if user == '':
+                    print("Invalid file name.")
+                else:
+                    cont = False
+        finally:
+            pass
+
+        # orders holds all valid orders, self._print_list holds all orders regardless of their status
         (orders, self._print_list) = OrderProcessor.read_file_to_orders(user + ".xlsx")
-        # print("Should be printing orders", orders)
 
         for i in orders:
             self._orders.append(orders[i])
@@ -51,15 +68,21 @@ class Amazon:
 
             # Initializing inventory quantity
             self.restock_inv(orders, item, i, kwargs)
-        print("Successfully processed orders.")
+
+        # Handling file not found errors
+        if Path(user+ ".xlsx").is_file():
+            print("Successfully processed orders.")
+        else:
+            print("Unsuccessful, file was not found.")
 
     def check_quantity(self, product_id, quantity_ordered):
         """
-
-        :param product_id:
-        :param quantity_ordered:
+            Returns a boolean designating the status of the inventory item. Used inside restock_inv
+        :param product_id: current item's product id
+        :param quantity_ordered: the current item's order quantity
         :return: True if the inventory has enough quantity, else False
         """
+
         quantity = len(self._inventory[product_id])
         if quantity > quantity_ordered:
             return True
@@ -68,13 +91,13 @@ class Amazon:
     def restock_inv(self, orders, item, index, kwargs):
         """
             Restocks the inventory with items depending on how many are left in the inventory.
-        :param orders:
-        :param item:
-        :param index:
-        :param kwargs:
-        :return:
+        :param orders: the order object to be accessed
+        :param item: the current item created from the order
+        :param index: the current order
+        :param kwargs: a dictionary with the necessary order details
         """
         i = (self._orders.index(orders.get(index)))
+
         try:
             # Inventory has enough items, no need to create new ones
             if self.check_quantity(item.product_id, self._orders[i][0]):
@@ -94,6 +117,11 @@ class Amazon:
                 self._inventory[item.product_id].append(item)
 
     def check_inv(self):
+        """
+            Prints out Amazon's inventory with messages to inform the user of
+            all items' quantity.
+        """
+
         for i, k in self._inventory.items():
             if len(k) >= 10:
                 print("Product ID", i, "is: In Stock(", len(k), ")")
@@ -107,30 +135,37 @@ class Amazon:
     def print_report(self):
         """
             Prints the full report of orders to a text file.
-        :return:
         """
 
+        # Used to format the date into the desired one
         date = datetime.datetime.now()
         year = str(date.year)
-        month = str(date.month)
+        month = str(date.month).zfill(2)
         day = str(date.day)
-        hour = str(date.hour)
-        minute = str(date.minute)
+        hour = str(date.hour).zfill(2)
+        minute = str(date.minute).zfill(2)
 
         st = day + "-" + month + "-" + year + " " + hour + ":" + minute
 
-        with open("report.txt", "a") as file:
-            file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-                       + str(st) + "\n\n")
-            print("Amazon Daily Transaction Report has been processed.\n"
-                  + str(st))
+        # File for results to be appended to
+        fn = "report.txt"
 
-            for i in self._print_list:
-                # Should be appending orders and orders with errors
-                file.write(i)
-                file.write("\n")
+        with open(fn, "a") as file:
+
+            # Only print/append if orders were actually processed
+            if len(self._print_list) >= 1:
+                file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                           + str(st) + "\n\n")
+                print("AMAZON DAILY TRANSACTION REPORT created in: " + fn + "\n"
+                      + str(st))
+                for i in self._print_list:
+                    file.write(i)
+                    file.write("\n")
 
     def menu(self):
+        """
+            Displays a menu for the user to manage Amazon's inventory.
+        """
         cont = True
         while cont:
             user = int(input("----Amazon Menu----\n1)Process Web Orders"

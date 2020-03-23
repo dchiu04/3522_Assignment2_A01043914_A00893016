@@ -25,9 +25,6 @@ class Toy(abc.ABC):
     def desc(self):
         return self._desc
 
-    def error_handle(self):
-        return True
-
     def __str__(self):
         return f"Name: {self._name} ----\n" \
                f"Product ID: {self._product_id}\n" \

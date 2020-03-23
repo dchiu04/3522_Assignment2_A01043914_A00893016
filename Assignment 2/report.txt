@@ -1,7 +1,7 @@
 SAMPLE REPORT: (orders.xlsx)
 
 AMAZON - DAILY TRANSACTION REPORT (DRT)
-22-3-2020 17:11
+22-03-2020 22:04
 
 Order: 1, Item: Toy, Product ID: C1230T, Name Santas Workshop - Essentials Edition, Quantity: 10
 Order: 2, Item: StuffedAnimal, Product ID: E2446E, Name Easter Bunny with Top Hat, Quantity: 2

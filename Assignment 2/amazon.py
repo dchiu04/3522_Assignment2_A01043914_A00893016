@@ -1,4 +1,3 @@
-import math
 
 from order_processor import OrderProcessor
 import datetime
@@ -13,15 +12,15 @@ class Amazon:
     def __init__(self):
         self._orders = []
         self._inventory = {}
+        self._print_list = []
 
     def process_orders(self):
         """
-            Converts the excel file into order items.
-        :return:
+            Converts the excel file into order items using order_processor.
         """
         user = input("Enter the name of the excel file to be processed(.xlsx): ")
 
-        orders = OrderProcessor.read_file_to_orders(user + ".xlsx")
+        (orders, self._print_list) = OrderProcessor.read_file_to_orders(user + ".xlsx")
         # print("Should be printing orders", orders)
 
         for i in orders:
@@ -55,12 +54,26 @@ class Amazon:
         print("Successfully processed orders.")
 
     def check_quantity(self, product_id, quantity_ordered):
+        """
+
+        :param product_id:
+        :param quantity_ordered:
+        :return: True if the inventory has enough quantity, else False
+        """
         quantity = len(self._inventory[product_id])
         if quantity > quantity_ordered:
             return True
         return False
 
     def restock_inv(self, orders, item, index, kwargs):
+        """
+            Restocks the inventory with items depending on how many are left in the inventory.
+        :param orders:
+        :param item:
+        :param index:
+        :param kwargs:
+        :return:
+        """
         i = (self._orders.index(orders.get(index)))
         try:
             # Inventory has enough items, no need to create new ones
@@ -91,52 +104,31 @@ class Amazon:
             else:
                 print("Product ID", i, "is: Out of stock (0)")
 
-    # def error_handle(self, file, k):
-    #     print("k.details[hasbatteries]: ", k.details['has_batteries'])
-    #
-    #     # Has_Batteries
-    #     if math.isnan(k.details['has_batteries']):
-    #         print("inside math is nan")
-    #         if k.details['has_batteries'] != 'Y' and k.details['has_batteries'] != 'N':
-    #             string = "Order: {}, Could be process order data was corrupted," \
-    #                   " InvalidDataError - Has_Batteries can only be ""Y"" or ""N""\n"
-    #             file.write(string.format(k.order_num))
-    #             return False
-    #
-    #     # Min_Age
-    #     if 'min_age' in k.details['min_age']:
-    #         try:
-    #             k.details['min_age'] += 0
-    #         except TypeError :
-    #             string = "Order: {}, Could be process order data was corrupted," \
-    #                   " InvalidDataError - Min_Age can only be a number\n"
-    #             file.write(string.format(k.order_num))
-    #             return False
-    #         finally:
-    #             pass
-    #
-    #     # Dimensions
-    #     if 'dimensions' in k.details['dimensions']:
-    #         if k.details['dimensions'].format(':,:'):
-    #             pass
-    #     return True
-
     def print_report(self):
-        OrderProcessor.append_to_file()
-    #     date = datetime.datetime.now()
-    #     with open("report.txt", "a") as file:
-    #         file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-    #                    + str(date) + "\n\n")
-    #         print("AMAZON - DAILY TRANSACTION REPORT (DRT)\n"
-    #               + str(date) + "\n\n")
-    #         for i, k in self._orders:
-    #             # Should be printing orders and orders with errors
-    #             OrderProcessor.error_handle(file, k, i)
-    #             print("Should be printing orders")
-    #             temp = "Order: {}, Item: {}, Product ID: {}, Name {}, Quantity: {}"
-    #             print(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
-    #             file.write(temp.format(k.order_num, k.item_type, k.product_id, k.name, i))
-    #             file.write("\n")
+        """
+            Prints the full report of orders to a text file.
+        :return:
+        """
+
+        date = datetime.datetime.now()
+        year = str(date.year)
+        month = str(date.month)
+        day = str(date.day)
+        hour = str(date.hour)
+        minute = str(date.minute)
+
+        st = day + "-" + month + "-" + year + " " + hour + ":" + minute
+
+        with open("report.txt", "a") as file:
+            file.write("\nAMAZON - DAILY TRANSACTION REPORT (DRT)\n"
+                       + str(st) + "\n\n")
+            print("Amazon Daily Transaction Report has been processed.\n"
+                  + str(st))
+
+            for i in self._print_list:
+                # Should be appending orders and orders with errors
+                file.write(i)
+                file.write("\n")
 
     def menu(self):
         cont = True
@@ -156,7 +148,6 @@ class Amazon:
 def main():
     store = Amazon()
     store.menu()
-    print(store._orders)
 
 
 if __name__ == '__main__':

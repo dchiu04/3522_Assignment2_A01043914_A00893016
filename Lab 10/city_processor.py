@@ -16,7 +16,7 @@ def jprint(obj):
     #
     text = json.dumps(obj, sort_keys=True, indent=4)
     print(text)
-
+#NEW COMMENTS IN LAB 10
 
 class City:
     """

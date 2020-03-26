@@ -1,3 +1,5 @@
+import threading
+
 import city_processor
 
 
@@ -9,14 +11,17 @@ class CityOverheadTimeQueue:
 
     def __init__(self):
         self._data_queue = []
+        self._access_queue_lock = threading.Lock()
 
     def put(self, overhead_time: city_processor.CityOverheadTimes) -> None:
-        self._data_queue.append(overhead_time)
+        with self._access_queue_lock:
+            self._data_queue.append(overhead_time)
 
     def get(self) -> city_processor.CityOverheadTimes:
-        temp = self._data_queue[0]
-        del (self._data_queue[0])
-        return temp
+        with self._access_queue_lock:
+            temp = self._data_queue[0]
+            del (self._data_queue[0])
+            return temp
 
     def len(self) -> int:
         return len(self._data_queue)

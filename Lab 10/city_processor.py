@@ -125,7 +125,7 @@ class CityOverheadTimes:
             times.append(str(iss_pass))
         times = '\n'.join(times)
         return f"The ISS will pass over {self.city.city_name} " \
-            f"{len(self.passes)} times. The times are: \n {times}"
+            f"{len(self.passes)} times. The times are: \n{times}"
 
 
 class ISSDataRequest:
@@ -148,16 +148,8 @@ class ISSDataRequest:
         latlng = "?lat=" + str(city.lat) + "&lon=" + str(city.lng)
         response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL + latlng)
         temp = response.json()
-        print(*temp['response'])
-        # jprint(response.json())
-        # print(response.status_code)
-        # print(response.json())
-
         c = CityOverheadTimes(city, *temp['response']) # *args: a list of dictionaries with "duration" and"risetime" keys
-        print(c)
-        # print(response.status_code)
-        # print(response.json())
-
+        #print(c)
         return c
 
 

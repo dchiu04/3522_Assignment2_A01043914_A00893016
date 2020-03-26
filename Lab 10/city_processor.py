@@ -145,16 +145,18 @@ class ISSDataRequest:
         # DEBUG:
         # print(response)
         # jprint(data)
+        latlng = "?lat=" + str(city.lat) + "&lon=" + str(city.lng)
+        response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL + latlng)
+        temp = response.json()
+        print(*temp['response'])
+        # jprint(response.json())
+        # print(response.status_code)
+        # print(response.json())
 
-        response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL)
-        jprint(response.json())
-        print(response.status_code)
-        print(response.json())
-
-        c = CityOverheadTimes(city, response) # *args: a list of dictionaries with "duration" and"risetime" keys
-
-        print(response.status_code)
-        print(response.json())
+        c = CityOverheadTimes(city, *temp['response']) # *args: a list of dictionaries with "duration" and"risetime" keys
+        print(c)
+        # print(response.status_code)
+        # print(response.json())
 
         return c
 

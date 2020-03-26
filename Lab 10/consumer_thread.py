@@ -19,3 +19,4 @@ class ConsumerThread(Thread):
                 time.sleep(0.75)
             else:
                 time.sleep(0.5)
+        self._data_incoming = False # Not sure if it's set false here or in producer_thread

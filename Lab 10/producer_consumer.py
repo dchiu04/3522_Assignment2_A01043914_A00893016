@@ -5,15 +5,11 @@ from consumer_thread import ConsumerThread
 from producer_thread import ProducerThread
 
 
-class ProducerConsumer:
-    pass
-
-
 class CityOverheadTimeQueue:
 
     def __init__(self):
         self._data_queue = []
-        self._access_queue_lock = threading.Lock() # Not sure about this line, he wrote it in an example tho
+        self._access_queue_lock = threading.Lock()  # Not sure about this line, he wrote it in an example tho
 
     def put(self, overhead_time: city_processor.CityOverheadTimes) -> None:
         with self._access_queue_lock:
@@ -41,7 +37,7 @@ def main():
     q = CityOverheadTimeQueue()
 
     prod = ProducerThread(city, q)
-    cons = ConsumerThread(city)
+    cons = ConsumerThread(q)
 
     threads = []
     prod.start()

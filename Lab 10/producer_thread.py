@@ -17,6 +17,8 @@ class ProducerThread(Thread):
         for c in self._cities:
             if count < 5:
                 city_processor.ISSDataRequest.get_overhead_pass(c)
+
+
                 count += 1
             else:
                 count = 0

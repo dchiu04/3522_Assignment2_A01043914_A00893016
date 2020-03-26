@@ -72,18 +72,24 @@ def main():
     city_overhead1 = city_processor.ISSDataRequest.get_overhead_pass(city)
 
     q = CityOverheadTimeQueue()
-    print(city_overhead1)
-    q.put(city_overhead1)
 
-    prod = ProducerThread(db.city_db, q)
+    x = int((len(db.city_db) / 3))
+    y = x * 2
+    prod = ProducerThread(db.city_db[0:x], q)
+    prod2 = ProducerThread(db.city_db[x:y], q)
+    prod3 = ProducerThread(db.city_db[y:], q)
     cons = ConsumerThread(q)
 
     threads = []
     prod.start()
+    prod2.start()
+    prod3.start()
     cons.start()
 
     # Add threads to thread list
     threads.append(prod)
+    threads.append(prod2)
+    threads.append(prod3)
     threads.append(cons)
 
     # Wait for all threads to complete

@@ -16,7 +16,6 @@ def jprint(obj):
     #
     text = json.dumps(obj, sort_keys=True, indent=4)
     print(text)
-#NEW COMMENTS IN LAB 10
 
 class City:
     """
@@ -31,6 +30,7 @@ class City:
     def __init__(self, city_ascii: str, lat: float, lng: float):
         """
         Initialized a CityLocation object with the provided city name,
+        latitude and longitude
         latitude and longitude
         :param city_ascii: a string
         :param lat: a float in the range [0,90]
@@ -140,10 +140,20 @@ class ISSDataRequest:
 
     @classmethod
     def get_overhead_pass(cls, city: City) -> CityOverheadTimes:
-        pass
         # Write request code here!
         # DEBUG:
         # print(response)
         # jprint(data)
+
+        response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL)
+        print(response.status_code)
+        print(response.json())
+        # list = city.lat
+        # dict = {"Lat:", city.lat, "Lng:", city.lng}
+        c = CityOverheadTimes(city, response)
+        print(response.status_code)
+        print(response.json())
+        return c
+
 
 

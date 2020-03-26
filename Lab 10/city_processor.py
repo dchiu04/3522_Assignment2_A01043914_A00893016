@@ -147,13 +147,15 @@ class ISSDataRequest:
         # jprint(data)
 
         response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL)
+        jprint(response.json())
         print(response.status_code)
         print(response.json())
-        # list = city.lat
-        # dict = {"Lat:", city.lat, "Lng:", city.lng}
-        c = CityOverheadTimes(city, response)
+
+        c = CityOverheadTimes(city, response) # *args: a list of dictionaries with "duration" and"risetime" keys
+
         print(response.status_code)
         print(response.json())
+
         return c
 
 

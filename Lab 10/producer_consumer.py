@@ -25,17 +25,16 @@ class CityOverheadTimeQueue:
 def main():
     filepath = "city_locations.xlsx"
     db = city_processor.CityDatabase(filepath)
-    for x in db.city_db:
-        print(x)
-    city = db.city_db[0]
+    # for x in db.city_db:
+    #     print(x)
+    city = db.city_db[1]
     print(city)
-
     # Failing on this line because json call fails? says no lat but there is a lat lol
     city_overhead1 = city_processor.ISSDataRequest.get_overhead_pass(city)
-    q = CityOverheadTimeQueue()
-    q.put(city_overhead1)
-    print(q.len)
-    print(q.get())
+    # q = CityOverheadTimeQueue()
+    # q.put(city_overhead1)
+    # print(q.len)
+    # print(q.get())
 
 
 if __name__ == "__main__":

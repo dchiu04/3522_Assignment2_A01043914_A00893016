@@ -7,7 +7,7 @@ class CityOverheadTimeQueue:
 
     def __init__(self):
         self._data_queue = []
-        self._access_queue_lock = threading.Lock()  # Not sure about this line, he wrote it in an example tho
+        self._access_queue_lock = threading.Lock()
 
     def put(self, overhead_time: city_processor.CityOverheadTimes) -> None:
         # with self._access_queue_lock:
@@ -34,6 +34,7 @@ class CityOverheadTimeQueue:
 
 
 class ProducerThread(threading.Thread):
+
     def __init__(self, cities: list, queue: CityOverheadTimeQueue):
         super().__init__()
         self._cities = cities
@@ -50,6 +51,7 @@ class ProducerThread(threading.Thread):
             else:
                 count = 0
                 time.sleep(1)
+                print("slept for 1 second")
 
 
 class ConsumerThread(threading.Thread):
@@ -70,8 +72,10 @@ class ConsumerThread(threading.Thread):
             print("ConsumerThread:", item)
             if self._queue.len() == 0:
                 time.sleep(0.75)
+                print("slept for 0.75 seconds")
             else:
                 time.sleep(0.5)
+                print("slept for 0.5 seconds")
 
 
 def main():
@@ -90,12 +94,10 @@ def main():
     threads = [prod, cons, prod2, prod3]
 
     # Add threads to thread list
-
     prod.start()
     cons.start()
     prod2.start()
     prod3.start()
-
 
 
     # Wait for all threads to complete
@@ -103,9 +105,6 @@ def main():
         t.join()
     print("Exiting Main Thread")
 
-    # q.put(city_overhead1)
-    # print(q.len())
-    # print(q.get())
 
 
 if __name__ == "__main__":

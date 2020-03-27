@@ -1,7 +1,7 @@
 import threading
 import time
-
 import city_processor
+
 
 class CityOverheadTimeQueue:
 
@@ -10,13 +10,23 @@ class CityOverheadTimeQueue:
         self._access_queue_lock = threading.Lock()  # Not sure about this line, he wrote it in an example tho
 
     def put(self, overhead_time: city_processor.CityOverheadTimes) -> None:
-        with self._access_queue_lock:
+        # with self._access_queue_lock:
+        self._access_queue_lock.acquire()
+        try:
             self._data_queue.append(overhead_time)
+        finally:
+            self._access_queue_lock.release()
 
     def get(self) -> city_processor.CityOverheadTimes:
-        with self._access_queue_lock:
+        #with self._access_queue_lock:
+        self._access_queue_lock.acquire()
+        temp = None
+
+        try:
             temp = self._data_queue[0]
             del (self._data_queue[0])
+        finally:
+            self._access_queue_lock.release()
             return temp
 
     def len(self) -> int:
@@ -35,6 +45,7 @@ class ProducerThread(threading.Thread):
         for c in self._cities:
             if count < 5:
                 self._queue.put(city_processor.ISSDataRequest.get_overhead_pass(c))
+                print("ProducerThread:", city_processor.ISSDataRequest.get_overhead_pass(c))
                 count += 1
             else:
                 count = 0
@@ -50,11 +61,13 @@ class ConsumerThread(threading.Thread):
 
     def run(self) -> None:
         while self._data_incoming or self._queue.len() > 0:
+            if self._queue.len() == 0:
+                self._data_incoming = False
             try:
                 item = self._queue.get()
             except IndexError:
                 item = None
-            print(item)
+            print("ConsumerThread:", item)
             if self._queue.len() == 0:
                 time.sleep(0.75)
             else:
@@ -65,12 +78,6 @@ def main():
     filepath = "city_locations_test.xlsx"
     db = city_processor.CityDatabase(filepath)
 
-    # for x in db.city_db:
-    #     print(x)
-    city = db.city_db[1]
-    print(city)
-    city_overhead1 = city_processor.ISSDataRequest.get_overhead_pass(city)
-
     q = CityOverheadTimeQueue()
 
     x = int((len(db.city_db) / 3))
@@ -80,26 +87,25 @@ def main():
     prod3 = ProducerThread(db.city_db[y:], q)
     cons = ConsumerThread(q)
 
-    threads = []
-    prod.start()
-    prod2.start()
-    prod3.start()
-    cons.start()
+    threads = [prod, cons, prod2, prod3]
 
     # Add threads to thread list
-    threads.append(prod)
-    threads.append(prod2)
-    threads.append(prod3)
-    threads.append(cons)
+
+    prod.start()
+    cons.start()
+    prod2.start()
+    prod3.start()
+
+
 
     # Wait for all threads to complete
     for t in threads:
         t.join()
     print("Exiting Main Thread")
 
-    q.put(city_overhead1)
-    print(q.len())
-    print(q.get())
+    # q.put(city_overhead1)
+    # print(q.len())
+    # print(q.get())
 
 
 if __name__ == "__main__":

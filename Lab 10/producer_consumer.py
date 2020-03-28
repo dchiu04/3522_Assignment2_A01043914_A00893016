@@ -18,7 +18,7 @@ class CityOverheadTimeQueue:
             self._access_queue_lock.release()
 
     def get(self) -> city_processor.CityOverheadTimes:
-        #with self._access_queue_lock:
+        # with self._access_queue_lock:
         self._access_queue_lock.acquire()
         temp = None
 
@@ -46,12 +46,12 @@ class ProducerThread(threading.Thread):
         for c in self._cities:
             if count < 5:
                 self._queue.put(city_processor.ISSDataRequest.get_overhead_pass(c))
-                print("ProducerThread:", city_processor.ISSDataRequest.get_overhead_pass(c))
+                print("ProducerThread:", c)
                 count += 1
             else:
                 count = 0
                 time.sleep(1)
-                print("slept for 1 second")
+                print("ProducerThread: Slept for 1 second")
 
 
 class ConsumerThread(threading.Thread):
@@ -69,13 +69,18 @@ class ConsumerThread(threading.Thread):
                 item = self._queue.get()
             except IndexError:
                 item = None
-            print("ConsumerThread:", item)
+            if item is None:
+                time.sleep(0.5)
+                print("ConsumerThread: Empty Queue")
+                print("ConsumerThread: Slept for 0.5 seconds")
+            else:
+                print("ConsumerThread:", item)
+                time.sleep(0.5)
+                print("ConsumerThread: Slept for 0.5 seconds")
             if self._queue.len() == 0:
                 time.sleep(0.75)
-                print("slept for 0.75 seconds")
-            else:
-                time.sleep(0.5)
-                print("slept for 0.5 seconds")
+                print("ConsumerThread: Slept for 0.75 seconds")
+
 
 
 def main():
@@ -86,26 +91,29 @@ def main():
 
     x = int((len(db.city_db) / 3))
     y = x * 2
-    prod = ProducerThread(db.city_db[0:x], q)
+    prod = ProducerThread(db.city_db, q)
     prod2 = ProducerThread(db.city_db[x:y], q)
     prod3 = ProducerThread(db.city_db[y:], q)
     cons = ConsumerThread(q)
 
-    threads = [prod, cons, prod2, prod3]
+    threads = [prod, cons]
 
     # Add threads to thread list
     prod.start()
     cons.start()
-    prod2.start()
-    prod3.start()
-
+    # prod2.start()
+    # prod3.start()
 
     # Wait for all threads to complete
     for t in threads:
         t.join()
+
     print("Exiting Main Thread")
 
 
-
 if __name__ == "__main__":
+    import time
+
+    start_time = time.time()
     main()
+    print("Total duration %s seconds" % (time.time() - start_time))

@@ -18,7 +18,7 @@ class CityOverheadTimeQueue:
             self._access_queue_lock.release()
 
     def get(self) -> city_processor.CityOverheadTimes:
-        #with self._access_queue_lock:
+        # with self._access_queue_lock:
         self._access_queue_lock.acquire()
         temp = None
 
@@ -51,7 +51,7 @@ class ProducerThread(threading.Thread):
             else:
                 count = 0
                 time.sleep(1)
-                print("slept for 1 second")
+                print("slept for 1 second in producerthread")
 
 
 class ConsumerThread(threading.Thread):
@@ -72,20 +72,20 @@ class ConsumerThread(threading.Thread):
             print("ConsumerThread:", item)
             if self._queue.len() == 0:
                 time.sleep(0.75)
-                print("slept for 0.75 seconds")
+                print("slept for 0.75 seconds in consumerthread")
             else:
                 time.sleep(0.5)
-                print("slept for 0.5 seconds")
+                print("slept for 0.5 seconds in consumerthread")
 
 
 def main():
-    filepath = "city_locations_test.xlsx"
+    filepath = "city_locations.xlsx"
     db = city_processor.CityDatabase(filepath)
-
     q = CityOverheadTimeQueue()
 
     x = int((len(db.city_db) / 3))
     y = x * 2
+
     prod = ProducerThread(db.city_db[0:x], q)
     prod2 = ProducerThread(db.city_db[x:y], q)
     prod3 = ProducerThread(db.city_db[y:], q)
@@ -99,12 +99,10 @@ def main():
     prod2.start()
     prod3.start()
 
-
     # Wait for all threads to complete
     for t in threads:
         t.join()
     print("Exiting Main Thread")
-
 
 
 if __name__ == "__main__":

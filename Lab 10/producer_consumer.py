@@ -1,5 +1,4 @@
 import threading
-import time
 import city_processor
 
 
@@ -97,8 +96,6 @@ class ConsumerThread(threading.Thread):
 
         # Only
         while self._data_incoming or self._queue.len() > 0:
-            if self._queue.len() == 0:
-                self._data_incoming = False
             try:
                 item = self._queue.get()
                 print("Consumer is consuming from the thread, Queue has", self._queue.len(), "elements left")
@@ -121,7 +118,7 @@ def main():
     filepath = "city_locations_test.xlsx"
     db = city_processor.CityDatabase(filepath)
     q = CityOverheadTimeQueue()
-
+    q.get()
     # Dividing up the database so each one gets approximately the same amount of data
     x = int((len(db.city_db) / 3))
     y = x * 2
@@ -131,7 +128,7 @@ def main():
     prod2 = ProducerThread(db.city_db[x:y], q)
     prod3 = ProducerThread(db.city_db[y:], q)
     cons = ConsumerThread(q)
-    threads = [prod, cons]
+    threads = [prod, prod2, prod3]
 
     prod.start()
     cons.start()
@@ -141,6 +138,9 @@ def main():
     # Wait for all threads to complete
     for t in threads:
         t.join()
+
+    cons._data_incoming = False
+    cons.join()
     print("All threads have completed their run time.")
 
 

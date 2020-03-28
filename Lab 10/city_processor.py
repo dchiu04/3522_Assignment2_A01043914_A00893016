@@ -75,7 +75,6 @@ class CityDatabase:
         and its corresponding CityLocation object as the value. We 
         have made the assumption that each city ahs a unique name.
         """
-        #
         self.city_db = [City(row[1]["city_ascii"], row[1]["lat"], row[1]["lng"])
                         for row in df.iterrows()]
 
@@ -114,6 +113,7 @@ class CityOverheadTimes:
         :param args: a list of dictionaries with "duration" and
         "risetime" keys
         """
+
         self.city = city
         self.passes = []
         for arg in args:
@@ -147,9 +147,10 @@ class ISSDataRequest:
         :return: CityOverheadTimes for the given city
         """
 
-        # Formatting and parsing for the latitude and longitude
-        latlng = "?lat=" + str(city.lat) + "&lon=" + str(city.lng)
-        response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL + latlng)
+        #  Parsing for the latitude and longitude
+        dic = {"lat": city.lat,
+                "lon" : city.lng}
+        response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL, params=dic)
 
         # Returns a dictionary with duration and risetimes
         temp = response.json()

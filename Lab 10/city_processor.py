@@ -141,10 +141,19 @@ class ISSDataRequest:
 
     @classmethod
     def get_overhead_pass(cls, city: City) -> CityOverheadTimes:
+        """
+            Returns the CityOverheadTimes corresponding to the city and dictionary it gets
+        :param city: string designating a certain city given from the excel file
+        :return: CityOverheadTimes for the given city
+        """
+
+        # Formatting and parsing for the latitude and longitude
         latlng = "?lat=" + str(city.lat) + "&lon=" + str(city.lng)
         response = requests.get(ISSDataRequest.OPEN_NOTIFY_OVERHEAD_PASS_URL + latlng)
+
+        # Returns a dictionary with duration and risetimes
         temp = response.json()
-        c = CityOverheadTimes(city, *temp['response']) # *args: a list of dictionaries with "duration" and"risetime" keys
+        c = CityOverheadTimes(city, *temp['response'])
         return c
 
 

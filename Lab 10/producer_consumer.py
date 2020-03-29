@@ -94,7 +94,6 @@ class ConsumerThread(threading.Thread):
             Starts the thread that consumes the data.
         """
 
-        # Only
         while self._data_incoming or self._queue.len() > 0:
             try:
                 item = self._queue.get()

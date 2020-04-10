@@ -1,3 +1,4 @@
+import asyncio
 import re
 from urllib.request import Request
 from argparse import ArgumentParser
@@ -59,24 +60,21 @@ class RequestManager:
 
 class RequestHandler:
 
-    @staticmethod
-    def handle_request(request):
+    async def handle_request(self, request):
         api = APIManager()
-        responses = api.create_urls(request)
+        jsons = await api.manage_request(request)
+
         if request.mode == 'pokemon':
-            for r in responses:
-                print(RequestHandler.get_pokemon((api.get_json(r))))
-        if request.mode == 'ability':
-            for r in responses:
-                print(RequestHandler.get_ability((api.get_json(r))))
+            for j in jsons:
+                print(self.get_pokemon(j))
+        elif request.mode == 'ability':
+            for j in jsons:
+                print(self.get_ability(j))
+        elif request.mode == 'move':
+            for j in jsons:
+                print(self.get_move(j))
 
-        if request.mode == 'move':
-            for r in responses:
-                print(RequestHandler.get_move((api.get_json(r))))
-
-
-    @staticmethod
-    def get_pokemon(json):
+    def get_pokemon(self, json):
         pName = json["name"]
         pId = json["id"]
         stats = []
@@ -104,16 +102,14 @@ class RequestHandler:
             moves.append(temp)
         return Pokemon(pName, pId, height, weight, stats, types, abilities, moves)
 
-    @staticmethod
-    def get_move(json):
+    def get_move(self, json):
         move = PokemonMove(json["name"], json["id"], json["generation"]["name"],
                            json["accuracy"], json["pp"], json["power"],
                            json["type"], json["damage_class"],
                            json["effect_entries"][0]["short_effect"])
         return move
 
-    @staticmethod
-    def get_ability(json):
+    def get_ability(self, json):
         ability = PokemonAbility(json["name"], json["id"],
                                  json["generation"],
                                  json["effect_entries"][0]["effect"],

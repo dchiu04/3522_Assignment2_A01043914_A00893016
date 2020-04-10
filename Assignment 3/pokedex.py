@@ -1,9 +1,14 @@
 class Pokedex:
-    pass
+    """
+    Driver class that sets up chains of responsiblity.
+    """
+
+    def __init__(self):
+        pass
 
 
 def main():
-    pass
+
 
 
 if __name__ == "__main__":

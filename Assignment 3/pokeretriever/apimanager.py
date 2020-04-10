@@ -1,4 +1,4 @@
-import requests
+
 from aiohttp import ClientSession
 import asyncio
 

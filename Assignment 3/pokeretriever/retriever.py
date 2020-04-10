@@ -1,5 +1,4 @@
-import asyncio
-import re
+
 from urllib.request import Request
 from argparse import ArgumentParser
 

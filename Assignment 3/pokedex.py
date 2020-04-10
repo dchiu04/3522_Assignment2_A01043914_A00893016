@@ -13,6 +13,7 @@ class Pokedex:
     async def execute_request(self, request: Request) -> PokedexObject:
         await self._handler.handle_request(request)
 
+
 def main():
     request = RequestManager.parse_arguments_to_request()
     pokedex = Pokedex()

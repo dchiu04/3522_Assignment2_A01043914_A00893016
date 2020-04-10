@@ -11,9 +11,6 @@ class Pokedex:
     """
 
     def __init__(self):
-        pass
-
-    def __init__(self):
         self._handler = RequestHandler()
 
     async def execute_request(self, request: Request) -> PokedexObject:

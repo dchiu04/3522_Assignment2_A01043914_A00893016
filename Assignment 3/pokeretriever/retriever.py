@@ -141,7 +141,9 @@ class RequestHandler:
                     tempmoves.append(move)
                     i = i + 1
                 pokemon.moves = tempmoves
-                print(pokemon.moves[0])
+
+            for pokemon in pokemonlist:
+                print(pokemon.expanded())
 
         else:
             if request.mode == 'pokemon':

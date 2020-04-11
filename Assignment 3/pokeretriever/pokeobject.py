@@ -57,6 +57,14 @@ class Pokemon(PokedexObject):
     def moves(self, value):
         self._moves = value
 
+    def expanded(self):
+
+        return f"Name: {self._name.title()}\n" \
+               f"Id: {self._id}\n" \
+               f"Height: {self._height} decimeters\n" \
+               f"Weight: {self._weight} hectograms\n" \
+
+
     def __str__(self):
 
         # Requires additional formatting to make it look nice

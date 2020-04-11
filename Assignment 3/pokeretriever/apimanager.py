@@ -10,9 +10,9 @@ class APIManager:
 
     def create_urls(self, request: Request):
         """
-
-        :param request:
-        :return:
+            Returns the url when given the mode by the user
+        :param request: Request json
+        :return: urls list containing the url
         """
 
         urls = []
@@ -23,12 +23,13 @@ class APIManager:
     async def get_json(self, url, session):
         """
             Gets the json request.
-        :param url:
-        :param session:
-        :return:
+        :param url: String corresponding to the URL
+        :param session: json session
+        :return: response.json or none depending on the status
         """
+
         response = await session.request(method="GET", url=url)
-        if response.status == 200:
+        if response.status == 200: # Only when the status is 200 will we want to get the response.json
             try:
                 return await response.json()
             except ValueError as e:
@@ -37,9 +38,9 @@ class APIManager:
 
     async def manage_request(self, request):
         """
-
-        :param request:
-        :return:
+            Manages requests made to poke api.
+        :param request: json request sent to the server
+        :return: results list of asyncio calls
         """
         urls = self.create_urls(request)
         calls = []

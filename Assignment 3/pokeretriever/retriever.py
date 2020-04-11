@@ -6,6 +6,10 @@ from pokeretriever.pokeobject import PokemonStat, PokemonAbility, PokemonMove, P
 
 
 class Request:
+
+    """
+        Holds the json request details
+    """
     def __init__(self, mode, input, is_expanded, output):
         self.mode = mode
         self.input = input
@@ -24,20 +28,28 @@ class Request:
 
 
 class RequestManager:
+    """
+        Manages the json requests
+    """
 
     @staticmethod
     def parse_arguments_to_request() -> Request:
+        """
+            Adds helper arguments for the user and parses arguments.
+        :return: request from check_input
+        """
 
+        # Adds arguments for the user
         parser = ArgumentParser()
         parser.add_argument("mode", help="It can be one of 3 specific modes, Pokemon, Ability, or Move.")
         group = parser.add_mutually_exclusive_group(required=True)
         group.add_argument("--inputfile", help="When providing a file name, the --inputfile flag "
                                                "must be provided.")
         group.add_argument("--inputdata", help="Either an id or a name. ")
-
-        parser.add_argument("--expanded", action="store_true", help="")
+        parser.add_argument("--expanded", action="store_true", help="Determine whether or not to provide expanded data.")
         parser.add_argument("--output", help="")
 
+        # Makes new requests based on the arguments the user passed in
         try:
             args = parser.parse_args()
             if args.inputfile:
@@ -50,8 +62,15 @@ class RequestManager:
         except Exception as e:
             print(e)
 
+
     @staticmethod
     def check_input(request):
+        """
+            Checking whether the user entered a text file or not.
+        :param request: Request json
+        :return: request after it has appended the input
+        """
+
         if request.input.endswith(".txt"):
             with open(request.input, 'r') as file:
                 for line in file.readlines():
@@ -62,8 +81,16 @@ class RequestManager:
 
 
 class RequestHandler:
+    """
+        Handles the json request.
+    """
 
     async def handle_request(self, request):
+        """
+            Handles printing out the selected mode by the user
+        :param request: Json request from pokeapi
+        """
+
         api = APIManager()
         jsons = await api.manage_request(request)
         if request.is_expanded and request.mode == 'pokemon':
@@ -127,7 +154,14 @@ class RequestHandler:
                 for j in jsons:
                     print(self.get_move(j))
 
+
     def get_pokemon(self, json):
+        """
+            Returns pokemon with all of their required stats from the json request.
+        :param json: Json request from pokeapi
+        :return: Pokemon object with stats
+        """
+
         pName = json["name"]
         pId = int(json["id"])
         tempList = []
@@ -158,14 +192,28 @@ class RequestHandler:
             moves.append(temp)
         return Pokemon(pName, pId, height, weight, stats, types, abilities, moves)
 
+
     def get_move(self, json):
+        """
+            Returns pokemon's move with all of their required stats from the json request.
+        :param json: Json request from pokeapi
+        :return: move object with stats
+        """
+
         move = PokemonMove(json["name"], json["id"], 0, json["generation"]["name"],
                            json["accuracy"], json["pp"], json["power"],
                            json["type"]["name"], json["damage_class"]["name"],
                            json["effect_entries"][0]["short_effect"])
         return move
 
+
     def get_ability(self, json):
+        """
+            Returns the pokemon's ability with all of their required stats from the json request.
+        :param json: Json request from pokeapi.
+        :return: ability object with stats
+        """
+
         pokelist = json["pokemon"]
         templist = []
         for poke in pokelist:
@@ -177,3 +225,16 @@ class RequestHandler:
                                  json["effect_entries"][0]["short_effect"],
                                  templist)
         return ability
+
+
+    def get_expanded(self, json):
+        """
+            Returns the expanded information about a pokemon, move, or ability
+        :param json: Json request from pokeapi
+        :return: nothing for now
+        """
+        # trying to do expanded
+        for data in json["stats"]:
+            name = (data['stat']['name'])
+            id = int(data['stat']['id'])
+            battle_only = (data['stat']['is_battle_only']).split('/')[6]

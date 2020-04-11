@@ -58,11 +58,8 @@ class Pokemon(PokedexObject):
         self._moves = value
 
     def __str__(self):
-        """
-        Formatted string for Pokemon object.
-        :return: str
-        """
 
+        # Requires additional formatting to make it look nice
         types = ""
         count = 1
         for type in self._types:
@@ -133,6 +130,7 @@ class PokemonAbility(PokedexObject):
 
     def __str__(self):
 
+        # Requires additional formatting to make it look nice
         pokes = ""
         count = 1
 

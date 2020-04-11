@@ -108,7 +108,7 @@ class RequestHandler:
     def get_move(self, json):
         move = PokemonMove(json["name"], json["id"], json["generation"]["name"],
                            json["accuracy"], json["pp"], json["power"],
-                           json["type"], json["damage_class"],
+                           json["type"]["name"], json["damage_class"]["name"],
                            json["effect_entries"][0]["short_effect"])
         return move
 
@@ -118,5 +118,5 @@ class RequestHandler:
                                  json["generation"]["name"],
                                  json["effect_entries"][0]["effect"],
                                  json["effect_entries"][0]["short_effect"],
-                                 json["pokemon"])
+                                 json["pokemon"]["name"])
         return ability

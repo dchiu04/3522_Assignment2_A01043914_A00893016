@@ -1,9 +1,8 @@
-
 from urllib.request import Request
 from argparse import ArgumentParser
 
 from pokeretriever.apimanager import APIManager
-from pokeretriever.pokeobject import PokemonStat, PokemonAbility, PokemonMove, Pokemon
+from pokeretriever.pokeobject import PokemonStat, PokemonAbility, PokemonMove, Pokemon, Stats
 
 
 class Request:
@@ -65,7 +64,7 @@ class RequestHandler:
 
         if request.mode == 'pokemon':
             for j in jsons:
-                #poke = self._get_pokemon(j)
+                # poke = self._get_pokemon(j)
                 print(self.get_pokemon(j))
 
         elif request.mode == 'ability':
@@ -75,17 +74,17 @@ class RequestHandler:
             for j in jsons:
                 print(self.get_move(j))
 
-
     def get_pokemon(self, json):
         pName = json["name"]
         pId = int(json["id"])
-        stats = []
+        tempList = []
         height = int(json["height"])
         weight = int(json["weight"])
         for data in json["stats"]:
             tempid = int((data['stat']['url']).split('/')[6])
             temp = PokemonStat((data['stat']['name']), tempid, int((data['base_stat'])), (data['stat']['url']))
-            stats.append(temp)
+            tempList.append(temp)
+        stats = Stats(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
         types = []
         for data in json["types"]:
             temp = data['type']['name']
@@ -104,14 +103,12 @@ class RequestHandler:
             moves.append(temp)
         return Pokemon(pName, pId, height, weight, stats, types, abilities, moves)
 
-
     def get_move(self, json):
         move = PokemonMove(json["name"], json["id"], json["generation"]["name"],
                            json["accuracy"], json["pp"], json["power"],
                            json["type"]["name"], json["damage_class"]["name"],
                            json["effect_entries"][0]["short_effect"])
         return move
-
 
     def get_ability(self, json):
         ability = PokemonAbility(json["name"], json["id"],

@@ -78,10 +78,10 @@ class RequestHandler:
 
     def get_pokemon(self, json):
         pName = json["name"]
-        pId = int(json["id"])
+        pId = json["id"]
         stats = []
-        height = int(json["height"])
-        weight = int(json["weight"])
+        height = json["height"]
+        weight = json["weight"]
         for data in json["stats"]:
             tempid = int((data['stat']['url']).split('/')[6])
             temp = PokemonStat((data['stat']['name']), tempid, int((data['base_stat'])), (data['stat']['url']))

@@ -115,8 +115,8 @@ class RequestHandler:
 
     def get_ability(self, json):
         ability = PokemonAbility(json["name"], json["id"],
-                                 json["generation"],
+                                 json["generation"]["name"],
                                  json["effect_entries"][0]["effect"],
-                                 json["effect_entries"][0]["language"]["short_effect"],
+                                 json["effect_entries"][0]["short_effect"],
                                  json["pokemon"])
         return ability

@@ -49,6 +49,14 @@ class Pokemon(PokedexObject):
     def types(self):
         return self._types
 
+    @abilities.setter
+    def abilities(self, value):
+        self._abilities = value
+
+    @moves.setter
+    def moves(self, value):
+        self._moves = value
+
     def __str__(self):
         """
         Formatted string for Pokemon object.
@@ -97,6 +105,7 @@ class PokemonAbility(PokedexObject):
         self._effect = effect
         self._effect_short = effect_short
         self._pokemon = pokemon
+        self._url = None
 
     @property
     def generation(self):
@@ -113,6 +122,14 @@ class PokemonAbility(PokedexObject):
     @property
     def pokemon(self):
         return self._pokemon
+
+    @property
+    def url(self):
+        return self._url
+
+    @url.setter
+    def url(self, value):
+        self._url = value
 
     def __str__(self):
 
@@ -131,7 +148,6 @@ class PokemonAbility(PokedexObject):
                 effects += eff + " "
                 continue
             effects += eff
-
 
         return f"Name: {self._name.title()}\n" \
                f"Id: {self._id}\n" \
@@ -199,6 +215,10 @@ class PokemonStat(PokedexObject):
         self._is_battle_only = is_battle_only
 
     @property
+    def url(self):
+        return self._url
+
+    @property
     def is_battle_only(self):
         return self._is_battle_only
 
@@ -211,6 +231,14 @@ class PokemonStat(PokedexObject):
                f"Id: {self._id}\n" \
                f"Base_Value: {self._base_value}\n" \
                f"Url: {self._url}\n"
+
+    @url.setter
+    def url(self, value):
+        self._url = value
+
+    @is_battle_only.setter
+    def is_battle_only(self, value):
+        self._is_battle_only = value
 
 
 class PokemonMove(PokedexObject):

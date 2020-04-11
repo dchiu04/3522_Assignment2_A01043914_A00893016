@@ -1,4 +1,3 @@
-
 from aiohttp import ClientSession
 import asyncio
 from pokeretriever.retriever import Request
@@ -45,12 +44,42 @@ class APIManager:
         urls = self.create_urls(request)
         calls = []
         results = []
+        json_results = []
+        sreuslt = []
+        areuslt = []
+        mreuslt = []
         async with ClientSession() as session:
-            for url in urls:
-                calls.append(asyncio.create_task(self.get_json(url, session)))
-                results = await asyncio.gather(*calls)
-            return results
+            if len(request.stat_urls) > 0:
+                for urls in request.stat_urls:
+                    for url in urls:
+                        calls.append(asyncio.create_task(self.get_json(url, session)))
+                        results += await asyncio.gather(*calls)
+                        sreuslt.append(results)
+                        calls = []
+                        results = []
+                json_results.append(sreuslt)
 
+                for urls in request.ability_urls:
+                    for url in urls:
+                        calls.append(asyncio.create_task(self.get_json(url, session)))
+                        results += await asyncio.gather(*calls)
+                        areuslt.append(results)
+                        calls = []
+                        results = []
+                json_results.append(areuslt)
 
+                for urls in request.move_urls:
+                    for url in urls:
+                        calls.append(asyncio.create_task(self.get_json(url, session)))
+                        results += await asyncio.gather(*calls)
+                        mreuslt.append(results)
+                        calls = []
+                        results = []
+                json_results.append(mreuslt)
 
+            else:
+                for url in urls:
+                    calls.append(asyncio.create_task(self.get_json(url, session)))
+                    json_results = await asyncio.gather(*calls)
 
+            return json_results

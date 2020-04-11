@@ -1,19 +1,33 @@
 
 from aiohttp import ClientSession
 import asyncio
-
 from pokeretriever.retriever import Request
 
 
 class APIManager:
+    """
+        Manages the JSON request calls to the pokeapi website.
+    """
 
     def create_urls(self, request: Request):
+        """
+
+        :param request:
+        :return:
+        """
+
         urls = []
         for r in request.searches:
             urls.append("https://pokeapi.co/api/v2/" + request.mode + "/" + r)
         return urls
 
     async def get_json(self, url, session):
+        """
+            Gets the json request.
+        :param url:
+        :param session:
+        :return:
+        """
         response = await session.request(method="GET", url=url)
         if response.status == 200:
             try:
@@ -23,6 +37,11 @@ class APIManager:
         return None
 
     async def manage_request(self, request):
+        """
+
+        :param request:
+        :return:
+        """
         urls = self.create_urls(request)
         calls = []
         results = []

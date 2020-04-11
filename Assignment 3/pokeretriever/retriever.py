@@ -65,7 +65,9 @@ class RequestHandler:
 
         if request.mode == 'pokemon':
             for j in jsons:
+                #poke = self._get_pokemon(j)
                 print(self.get_pokemon(j))
+
         elif request.mode == 'ability':
             for j in jsons:
                 print(self.get_ability(j))
@@ -73,15 +75,16 @@ class RequestHandler:
             for j in jsons:
                 print(self.get_move(j))
 
+
     def get_pokemon(self, json):
         pName = json["name"]
-        pId = json["id"]
+        pId = int(json["id"])
         stats = []
-        height = json["height"]
-        weight = json["weight"]
+        height = int(json["height"])
+        weight = int(json["weight"])
         for data in json["stats"]:
             tempid = int((data['stat']['url']).split('/')[6])
-            temp = PokemonStat((data['stat']['name']), tempid, (data['base_stat']), (data['stat']['url']))
+            temp = PokemonStat((data['stat']['name']), tempid, int((data['base_stat'])), (data['stat']['url']))
             stats.append(temp)
         types = []
         for data in json["types"]:
@@ -95,11 +98,12 @@ class RequestHandler:
         moves = []
         for i in range(len(json["moves"])):
             name = json["moves"][i]["move"]["name"]
-            level = json["moves"][i]["version_group_details"][0]["level_learned_at"]
+            level = int(json["moves"][i]["version_group_details"][0]["level_learned_at"])
             url = json["moves"][i]["move"]["url"]
             temp = PokemonMove(name, i + 1, level, url)
             moves.append(temp)
         return Pokemon(pName, pId, height, weight, stats, types, abilities, moves)
+
 
     def get_move(self, json):
         move = PokemonMove(json["name"], json["id"], json["generation"]["name"],
@@ -108,10 +112,11 @@ class RequestHandler:
                            json["effect_entries"][0]["short_effect"])
         return move
 
+
     def get_ability(self, json):
         ability = PokemonAbility(json["name"], json["id"],
                                  json["generation"],
                                  json["effect_entries"][0]["effect"],
-                                 json["effect_entries"][0]["short_effect"],
+                                 json["effect_entries"][0]["language"]["short_effect"],
                                  json["pokemon"])
         return ability

@@ -20,6 +20,7 @@ class Pokedex:
 def main():
     request = RequestManager.parse_arguments_to_request()
     pokedex = Pokedex()
+
     try:
         asyncio.run(pokedex.execute_request(request))
     except Exception as e:

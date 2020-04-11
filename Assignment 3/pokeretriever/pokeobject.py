@@ -2,12 +2,20 @@ from abc import ABC
 
 
 class PokedexObject(ABC):
+    """
+        Exists in the pokedex
+    """
+
     def __init__(self, name, id):
         self._name = name
         self._id = id
 
 
 class Pokemon(PokedexObject):
+    """
+        Individual pokemon object with its own stats.
+    """
+
     def __init__(self, name, id, height, weight, stats, types, abilities, moves):
         super().__init__(name, id)
         self._height = height
@@ -18,20 +26,8 @@ class Pokemon(PokedexObject):
         self._moves = moves
 
     @property
-    def height(self):
-        return self._height
-
-    @property
-    def weight(self):
-        return self._weight
-
-    @property
     def stats(self):
         return self._stats
-
-    @property
-    def types(self):
-        return self._types
 
     @property
     def abilities(self):
@@ -41,16 +37,47 @@ class Pokemon(PokedexObject):
     def moves(self):
         return self._moves
 
+    def types(self):
+        return self._types
+
     def __str__(self):
-        return f"name: {self._name}\n" \
-               f"id: {self._id}\n" \
-               f"Height: {self._height}\n" \
-               f"Weight: {self._weight}\n"
+        """
+        Formatted string for Pokemon object.
+        :return: str
+        """
+        types = [type["type"]["name"].upper() for type in self._types]
+
+        moves = ""
+        count_moves = 0
+        for move in self._moves:
+            count_moves += 1
+            moves += f"    Move {count_moves}: {move}"
+
+        abilities = ""
+        count_abilities = 0
+        for ability in self._abilities:
+            count_abilities += 1
+            abilities += f"    Ability {count_abilities}: {ability}\n"
+
+        return f"Name: {self._name.title()}\n" \
+               f"Id: {self._id}\n" \
+               f"Height: {self._height} decimeters\n" \
+               f"Weight: {self._weight} hectograms, " \
+               f"Stats:\n{self._stats}\n" \
+               f"Type(s):\n{self._types}\n" \
+               f"Ability(s):\n{abilities}\n\n" \
+               f"Move(s)\n{moves}\n"
 
 
 class PokemonAbility(PokedexObject):
-    def __init__(self, name, id, url=None, generation=None, effect=None, effect_short=None, pokemon=[]):
+    """
+        Each Pokemon's individual abilities and their context.
+    """
+
+    def __init__(self, name, id, url=None, generation=None, effect=None, effect_short=None, pokemon=None):
         super().__init__(name, id)
+        if pokemon is None:
+            pokemon = []
         self._url = url
         self._generation = generation
         self._effect = effect
@@ -74,12 +101,22 @@ class PokemonAbility(PokedexObject):
         return self._pokemon
 
     def __str__(self):
-        return f"name: {self._name}\n" \
-               f"id: {self._id}\n" \
-               f"effect: {self._effect}\n"
+        return  f"Name: {self._name.title()}\n" \
+                f"Id: {self._id}\n" \
+                f"Effect: {self.effect}\n" \
+                f"Effect (short): {self.effect_short}\n" \
+                f"Pokemon:\n    {self._pokemon}"
+
+
+                #f"Generation: {self.generation}\n" \
+
 
 
 class Stats:
+    """
+        Determines the individual pokemon's stats.
+    """
+
     def __init__(self, speed, sp_def, sp_atk, defense, attack, hp):
         self._speed = speed
         self._sp_def = sp_def
@@ -120,6 +157,10 @@ class Stats:
 
 
 class PokemonStat(PokedexObject):
+    """
+        Categorizes stats.
+    """
+
     def __init__(self, name, id, base_value=None, url=None, is_battle_only=None):
         super().__init__(name, id)
         self._url = url
@@ -142,6 +183,10 @@ class PokemonStat(PokedexObject):
 
 
 class PokemonMove(PokedexObject):
+    """
+        Individual pokemon's ability and their stats.
+    """
+
     def __init__(self, name, id, level=None, url=None, generation=None, accuracy=None, pp=None, power=None, type=None,
                  damage_class=None, effect_short=None):
         super().__init__(name, id)

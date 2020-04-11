@@ -1,4 +1,2 @@
-squirtle
-eevee
-piplup
-charmander
+11
+17

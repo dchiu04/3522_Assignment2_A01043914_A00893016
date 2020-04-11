@@ -70,6 +70,7 @@ class RequestHandler:
         elif request.mode == 'ability':
             for j in jsons:
                 print(self.get_ability(j))
+
         elif request.mode == 'move':
             for j in jsons:
                 print(self.get_move(j))
@@ -111,9 +112,14 @@ class RequestHandler:
         return move
 
     def get_ability(self, json):
+        pokelist = json["pokemon"]
+        templist = []
+        for poke in pokelist:
+            templist.append(poke['pokemon']['name'])
+
         ability = PokemonAbility(json["name"], json["id"],
                                  json["generation"]["name"],
                                  json["effect_entries"][0]["effect"],
                                  json["effect_entries"][0]["short_effect"],
-                                 json["pokemon"]["name"])
+                                 templist)
         return ability

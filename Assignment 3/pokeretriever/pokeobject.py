@@ -45,6 +45,7 @@ class Pokemon(PokedexObject):
     def moves(self):
         return self._moves
 
+    @property
     def types(self):
         return self._types
 
@@ -57,29 +58,30 @@ class Pokemon(PokedexObject):
         types = ""
         count = 1
         for type in self._types:
-            types = types + "    Type " + str(count) + ": " + type.title() + "\n"
+            types = types + "Type " + str(count) + ": " + type.title() + "\n"
             count = count + 1
 
         abilities = ""
         count = 1
         for ability in self._abilities:
-            abilities = abilities + "    Ability " + str(count) + ": " + ability._name.title() + "\n"
+            abilities = abilities + "Ability " + str(count) + ": " + ability._name.title() + "\n"
             count = count + 1
 
         moves = ""
         count = 1
         for move in self._moves:
-            moves = moves + "\n    Move " + str(count) + ": " + move._name.title() + " (Learned at level: " + str(move.level) + ")"
+            moves = moves + "Move " + str(count) + ": " + move._name.title() + " (Learned at level: " + str(
+                move.level) + " )\n "
             count = count + 1
 
         return f"Name: {self._name.title()}\n" \
-                f"Id: {self._id}\n" \
-                f"Height: {self._height} decimeters\n" \
-                f"Weight: {self._weight} hectograms\n" \
-                f"Stats:{self._stats}\n" \
-                f"Type(s):\n{types}" \
-                f"Ability(s):\n{abilities}"\
-                f"Moves(s):{moves}\n"
+               f"Id: {self._id}\n" \
+               f"Height: {self._height} decimeters\n" \
+               f"Weight: {self._weight} hectograms\n " \
+               f"Stats:\n{self._stats}\n" \
+               f"Type(s):\n{types}\n" \
+               f"Ability(s):\n{abilities}\n" \
+               f"Moves(s):\n{moves}\n"
 
 
 class PokemonAbility(PokedexObject):
@@ -87,10 +89,8 @@ class PokemonAbility(PokedexObject):
         Each Pokemon's individual abilities and their context.
     """
 
-    def __init__(self, name, id, generation=None, effect=None, effect_short=None, pokemon=None):
+    def __init__(self, name, id, generation=None, effect=None, effect_short=None, pokemon=[]):
         super().__init__(name, id)
-        if pokemon is None:
-            pokemon = []
         self._generation = generation
         self._effect = effect
         self._effect_short = effect_short
@@ -98,7 +98,7 @@ class PokemonAbility(PokedexObject):
 
     @property
     def generation(self):
-        return self.generation
+        return self._generation
 
     @property
     def effect(self):
@@ -164,7 +164,7 @@ class Stats:
                f"    Special Attack: {self._sp_atk.base_value}\n" \
                f"    Defense: {self._defense.base_value}\n" \
                f"    Attack: {self._attack.base_value}\n" \
-               f"    HP: {self._hp.base_value}"
+               f"    HP: {self._hp.base_value}\n"
 
 
 class PokemonStat(PokedexObject):

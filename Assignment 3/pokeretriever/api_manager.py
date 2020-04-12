@@ -49,8 +49,11 @@ class APIManager:
         sreuslt = []
         areuslt = []
         mreuslt = []
+
         async with ClientSession() as session:
             if len(request.stat_urls) > 0:
+
+                # Parsing stats' urls
                 for urls in request.stat_urls:
                     for url in urls:
                         calls.append(asyncio.create_task(self.get_json(url, session)))
@@ -60,6 +63,7 @@ class APIManager:
                         results = []
                 json_results.append(sreuslt)
 
+                # Parsing ability urls
                 for urls in request.ability_urls:
                     for url in urls:
                         calls.append(asyncio.create_task(self.get_json(url, session)))
@@ -69,6 +73,7 @@ class APIManager:
                         results = []
                 json_results.append(areuslt)
 
+                # Parsing move urls
                 for urls in request.move_urls:
                     for url in urls:
                         calls.append(asyncio.create_task(self.get_json(url, session)))
@@ -79,6 +84,7 @@ class APIManager:
                 json_results.append(mreuslt)
 
             else:
+                # Groups all urls together from above and returns the appended url list
                 for url in urls:
                     calls.append(asyncio.create_task(self.get_json(url, session)))
                     json_results = await asyncio.gather(*calls)

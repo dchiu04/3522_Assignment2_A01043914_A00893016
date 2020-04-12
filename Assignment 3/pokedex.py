@@ -1,19 +1,17 @@
 import asyncio
-
-from pokeretriever.pokeobject import PokedexObject
 from pokeretriever.retriever import Request, RequestManager
 from pokeretriever.retriever import RequestHandler
 
 
 class Pokedex:
     """
-    Driver class that sets up chains of responsiblity.
+    Driver class that sets up chains of responsibility.
     """
 
     def __init__(self):
         self._handler = RequestHandler()
 
-    async def execute_request(self, request: Request) -> PokedexObject:
+    async def execute_request(self, request: Request):
         await self._handler.handle_request(request)
 
 

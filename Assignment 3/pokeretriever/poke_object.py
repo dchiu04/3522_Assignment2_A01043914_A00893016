@@ -74,7 +74,8 @@ class Pokemon(PokedexObject):
         moves = ""
         count = 1
         for move in self._moves:
-            moves = moves + "        Move " + str(count) + ": " + move.name.title() + " (Learned at level: " + str(move.level) + ")\n" \
+            moves = moves + "        Move " + str(count) + ": " + move.name.title() +\
+                " (Learned at level: " + str(move.level) + ")\n" \
                 "                Expanded Info:\n" \
                 "                        URL: " + move.url + "\n" \
                 "                        Name: " + move.name.title() + "\n" \
@@ -160,8 +161,8 @@ class Pokemon(PokedexObject):
 
         for ability in self._abilities:
             for pokemon in ability.pokemon:
-                pokemon_str += "                                Pokemon " + str(
-                    poke_count) + ": " + pokemon.title() + "\n"
+                pokemon_str += "                                Pokemon " + str(poke_count) + ": " \
+                    + pokemon.title() + "\n"
                 poke_count += 1
 
             abilities = abilities + "        Ability " + str(count) + ": " + ability.name.title() + "\n" \
@@ -179,7 +180,7 @@ class Pokemon(PokedexObject):
             count = count + 1
 
         # Returns the string with expanded information on stats, abilities, and move
-        return f"Name: {self._name.title()}\n" \
+        return f"Name: {self.name.title()}\n" \
                f"Id: {self._id}\n" \
                f"Height: {self._height} decimeters\n" \
                f"Weight: {self._weight} hectograms\n" \
@@ -190,7 +191,7 @@ class Pokemon(PokedexObject):
 
     def __str__(self):
 
-        # Requires additional formatting
+        # Additional formatting to make it look nice
         types = ""
         count = 1
         for type in self._types:
@@ -200,21 +201,21 @@ class Pokemon(PokedexObject):
         abilities = ""
         count = 1
         for ability in self._abilities:
-            abilities = abilities + "    Ability " + str(count) + ": " + ability._name.title() + "\n"
+            abilities = abilities + "    Ability " + str(count) + ": " + ability.name.title() + "\n"
             count = count + 1
 
         moves = ""
         count = 1
         for move in self._moves:
-            moves = moves + "    Move " + str(count) + ": " + move._name.title() + " (Learned at level: " + str(
-                move.level) + ")\n"
+            moves = moves + "    Move " + str(count) + ": " + move.name.title()\
+                    + " (Learned at level: " + str(move.level) + ")\n"
             count = count + 1
 
-        return f"Name: {self._name.title()}\n" \
+        return f"Name: {self.name.title()}\n" \
                f"Id: {self._id}\n" \
                f"Height: {self._height} decimeters\n" \
                f"Weight: {self._weight} hectograms\n" \
-               f"Stats:{self._stats}" \
+               f"Stats:{self.stats}" \
                f"Type(s):\n{types}" \
                f"Ability(s):\n{abilities}" \
                f"Moves(s):\n{moves}"
@@ -261,7 +262,7 @@ class PokemonAbility(PokedexObject):
 
     def __str__(self):
 
-        # Requires additional formatting to make it look nice
+        # Additional formatting to make it look nice
         pokes = ""
         count = 1
 
@@ -278,7 +279,7 @@ class PokemonAbility(PokedexObject):
                 continue
             effects += eff
 
-        return f"Name: {self._name.title()}\n" \
+        return f"Name: {self.name.title()}\n" \
                f"Id: {self._id}\n" \
                f"Generation: {self.generation}\n" \
                f"Effect: {effects}\n" \
@@ -288,7 +289,7 @@ class PokemonAbility(PokedexObject):
 
 class Stats:
     """
-        Determines the individual pokemon's stats.
+        Holds the individual pokemon's stats.
     """
 
     def __init__(self, speed=None, sp_def=None, sp_atk=None, defense=None, attack=None, hp=None):
@@ -334,7 +335,7 @@ class Stats:
 
 class PokemonStat(PokedexObject):
     """
-        Categorizes stats.
+        Categorizes pokemon stats.
     """
 
     def __init__(self, name, id, base_value=None, url=None, is_battle_only=None):
@@ -355,12 +356,6 @@ class PokemonStat(PokedexObject):
     def base_value(self):
         return self._base_value
 
-    def __str__(self):
-        return f"Name: {self._name}\n" \
-               f"Id: {self._id}\n" \
-               f"Base_Value: {self._base_value}\n" \
-               f"Url: {self._url}\n"
-
     @url.setter
     def url(self, value):
         self._url = value
@@ -369,10 +364,16 @@ class PokemonStat(PokedexObject):
     def is_battle_only(self, value):
         self._is_battle_only = value
 
+    def __str__(self):
+        return f"Name: {self.name}\n" \
+               f"Id: {self._id}\n" \
+               f"Base_Value: {self._base_value}\n" \
+               f"Url: {self._url}\n"
+
 
 class PokemonMove(PokedexObject):
     """
-        Individual pokemon's ability and their stats.
+        Individual pokemon's move and their stats.
     """
 
     def __init__(self, name, id, level=None, generation=None, accuracy=None, pp=None, power=None, type=None,
@@ -425,7 +426,7 @@ class PokemonMove(PokedexObject):
         return self._effect_short
 
     def __str__(self):
-        return f"Name: {self._name.title()}\n" \
+        return f"Name: {self.name.title()}\n" \
                f"Id: {self._id}\n" \
                f"Generation: {self._generation}\n" \
                f"Accuracy: {self._accuracy}\n" \

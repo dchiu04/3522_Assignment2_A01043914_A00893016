@@ -49,7 +49,7 @@ class RequestManager:
         parser.add_argument("--expanded", action="store_true",
                             help="Determine whether or not to provide expanded data.")
         parser.add_argument("--output", help="When providing an output file name, the --output flag"
-                            " must be provided.")
+                                             " must be provided.")
 
         # Makes new requests based on the arguments the user passed in
         try:
@@ -184,8 +184,10 @@ class RequestHandler:
             with open(fn, "a") as file:
                 for pokemon in pokemonlist:
                     file.write(str(pokemon.expanded()))
+                print("Appended pokemon expanded data to file. Please check output file: " + request.output)
+                return
 
-
+        # Expanded print to console
         if request.is_expanded and request.mode == 'pokemon':
             stat_urls = []
             ability_urls = []
@@ -244,6 +246,7 @@ class RequestHandler:
             for pokemon in pokemonlist:
                 print(pokemon.expanded())
 
+        # Non-expanded print to console
         else:
             if request.mode == 'pokemon':
                 for j in jsons:

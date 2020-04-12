@@ -58,14 +58,46 @@ class Pokemon(PokedexObject):
         self._moves = value
 
     def expanded(self):
+        """
+            Returns the expanded information of a pokemon
+        :return: String containing the expanded information
+        """
+
+        # Requires additional formatting to make it look nice
+        types = ""
+        count = 1
+        for type in self._types:
+            types = types + "    Type " + str(count) + ": " + type.title() + "\n"
+            count = count + 1
+
+        abilities = ""
+        count = 1
+        for ability in self._abilities:
+            abilities = abilities + "    Ability " + str(count) + ": " + ability._name.title() + "\n"
+            count = count + 1
+
+        moves = ""
+        count = 1
+        for move in self._moves:
+            moves = moves + "    Move " + str(count) + ": " + move._name.title() + " (Learned at level: " + str(
+                move.level) + ")\n"
+            count = count + 1
+
+        stats = "Stats:\n"
+        for stats in self._stats:
+                stats += "    " + stats + "Is_Battle_only: " + stats.is_battle_only + ","
 
         return f"Name: {self._name.title()}\n" \
                f"Id: {self._id}\n" \
                f"Height: {self._height} decimeters\n" \
                f"Weight: {self._weight} hectograms\n" \
+               f"Stats:\n{stats}" \
+               f"Type(s):\n{types}" \
+               f"Ability(s):\n{abilities}" \
+               f"Moves(s):\n{moves}"
 
 
-    def __str__(self):
+def __str__(self):
 
         # Requires additional formatting to make it look nice
         types = ""

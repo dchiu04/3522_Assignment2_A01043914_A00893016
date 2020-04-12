@@ -21,6 +21,7 @@ How to run: Using Pycharm or the command line, run the file pokedex.py with comm
   {"pokemon" | "ability" | "move"} {--inputfile "filename.txt" |--inputdata "name or id'} [--expanded] [--output "file"]
 
 Note:
+
 {} - mandatory
 
 | - or (one or the other)

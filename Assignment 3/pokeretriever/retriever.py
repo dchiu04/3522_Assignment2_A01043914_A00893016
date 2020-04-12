@@ -10,12 +10,15 @@ class Request:
         Holds the json request details
     """
 
-    def __init__(self, mode, input, output, is_expanded=False):
+    def _init_(self, mode, input, is_expanded, output):
         self.mode = mode
         self.input = input
         self.is_expanded = is_expanded
         self.output = output
         self.searches = []
+        self.stat_urls = []
+        self.ability_urls = []
+        self.move_urls = []
 
     def __str__(self):
         return f"Mode: {self.mode}\n" \

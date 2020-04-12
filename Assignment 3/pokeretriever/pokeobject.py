@@ -57,6 +57,7 @@ class Pokemon(PokedexObject):
     def moves(self, value):
         self._moves = value
 
+    # penis
     def expanded(self):
         """
             Returns the expanded information of a pokemon

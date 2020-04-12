@@ -103,7 +103,6 @@ class RequestHandler:
             for j in jsons:
                 print(self.get_move(j))
 
-
     def get_pokemon(self, json):
         """
             Returns pokemon with all of their required stats from the json request.

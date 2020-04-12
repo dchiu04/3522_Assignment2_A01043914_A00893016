@@ -10,7 +10,7 @@ class Request:
         Holds the json request details
     """
 
-    def _init_(self, mode, input, is_expanded, output):
+    def __init__(self, mode, input, is_expanded, output):
         self.mode = mode
         self.input = input
         self.is_expanded = is_expanded
@@ -46,8 +46,10 @@ class RequestManager:
         group.add_argument("--inputfile", help="When providing a file name, the --inputfile flag "
                                                "must be provided.")
         group.add_argument("--inputdata", help="Either an id or a name. ")
-        parser.add_argument("--expanded", help="Determine whether or not to provide expanded data.")
-        parser.add_argument("--output", help="")
+        parser.add_argument("--expanded", action="store_true",
+                            help="Determine whether or not to provide expanded data.")
+        parser.add_argument("--output", help="When providing an output file name, the --output flag"
+                            " must be provided.")
 
         # Makes new requests based on the arguments the user passed in
         try:
@@ -57,10 +59,10 @@ class RequestManager:
             else:
                 request = Request(args.mode.lower(), args.inputdata, args.expanded, args.output)
             r = RequestManager.check_input(request)
+
             return r
         except Exception as e:
             print(e)
-
 
     @staticmethod
     def check_input(request):
@@ -93,18 +95,165 @@ class RequestHandler:
         api = APIManager()
         jsons = await api.manage_request(request)
 
-        if request.mode == 'pokemon':
-            for j in jsons:
-                # poke = self._get_pokemon(j)
-                print(self.get_pokemon(j))
+        # Append non-expanded data to file
+        if not request.is_expanded and request.output is not None:
+            if request.mode == 'pokemon':
+                fn = request.output
+                with open(fn, "a") as file:
+                    for j in jsons:
+                        file.write(str(self.get_pokemon(j)))
+                        file.write("\n")
+                    print("Appended pokemon data to file. Please check output file: " + request.output)
+                    return
+            elif request.mode == 'ability':
+                fn = request.output
+                with open(fn, "a") as file:
+                    for j in jsons:
+                        file.write(str(self.get_ability(j)))
+                        file.write("\n")
+                    print("Appended pokemon ability data to file. Please check output file: " + request.output)
+                    return
+            elif request.mode == 'move':
+                fn = request.output
+                with open(fn, "a") as file:
+                    for j in jsons:
+                        file.write(str(self.get_move(j)))
+                        file.write("\n")
+                    print("Appended pokemon move data to file. Please check output file: " + request.output)
+                    return
 
-        elif request.mode == 'ability':
+        # Append expanded data to file
+        if request.is_expanded and request.mode == 'pokemon' and request.output is not None:
+            stat_urls = []
+            ability_urls = []
+            move_urls = []
+            pokemonlist = []
             for j in jsons:
-                print(self.get_ability(j))
+                temppokemon = self.get_pokemon(j)
+                pokemonlist.append(temppokemon)
+                for i in range(len(j['stats'])):
+                    stat_urls.append(j['stats'][i]['stat']['url'])
+                for a in j['abilities']:
+                    ability_urls.append(a['ability']['url'])
+                for i in range(len(j['moves'])):
+                    move_urls.append(j['moves'][i]['move']['url'])
 
-        elif request.mode == 'move':
+                request.stat_urls.append(stat_urls)
+                request.ability_urls.append(ability_urls)
+                request.move_urls.append(move_urls)
+                stat_urls = []
+                ability_urls = []
+                move_urls = []
+            jsons = await api.manage_request(request)
+
+            for pokemon in pokemonlist:
+                pokemon.stats.speed.is_battle_only = (jsons[0][0][0]['is_battle_only'])
+                pokemon.stats.sp_def.is_battle_only = (jsons[0][1][0]['is_battle_only'])
+                pokemon.stats.sp_atk.is_battle_only = (jsons[0][2][0]['is_battle_only'])
+                pokemon.stats.defense.is_battle_only = (jsons[0][3][0]['is_battle_only'])
+                pokemon.stats.attack.is_battle_only = (jsons[0][4][0]['is_battle_only'])
+                pokemon.stats.hp.is_battle_only = (jsons[0][5][0]['is_battle_only'])
+
+            i = 0
+            for pokemon in pokemonlist:
+                tempabilities = []
+                for ability in pokemon.abilities:
+                    tempurl = ability.url
+                    tempability = self.get_ability(jsons[1][i][0])
+                    tempability.url = tempurl
+                    tempabilities.append(tempability)
+                    i = i + 1
+                pokemon.abilities = tempabilities
+
+            i = 0
+            for pokemon in pokemonlist:
+                tempmoves = []
+                for move in pokemon.moves:
+                    templvl = move.level
+                    tempurl = move.url
+                    tempmove = self.get_move(jsons[2][i][0])
+                    tempmove.url = tempurl
+                    tempmove.level = templvl
+                    tempmoves.append(tempmove)
+                    i = i + 1
+                pokemon.moves = tempmoves
+
+            # File for results to be appended to
+            fn = request.output
+
+            with open(fn, "a") as file:
+                for pokemon in pokemonlist:
+                    file.write(str(pokemon.expanded()))
+
+
+        if request.is_expanded and request.mode == 'pokemon':
+            stat_urls = []
+            ability_urls = []
+            move_urls = []
+            pokemonlist = []
             for j in jsons:
-                print(self.get_move(j))
+                temppokemon = self.get_pokemon(j)
+                pokemonlist.append(temppokemon)
+                for i in range(len(j['stats'])):
+                    stat_urls.append(j['stats'][i]['stat']['url'])
+                for a in j['abilities']:
+                    ability_urls.append(a['ability']['url'])
+                for i in range(len(j['moves'])):
+                    move_urls.append(j['moves'][i]['move']['url'])
+
+                request.stat_urls.append(stat_urls)
+                request.ability_urls.append(ability_urls)
+                request.move_urls.append(move_urls)
+                stat_urls = []
+                ability_urls = []
+                move_urls = []
+            jsons = await api.manage_request(request)
+
+            for pokemon in pokemonlist:
+                pokemon.stats.speed.is_battle_only = (jsons[0][0][0]['is_battle_only'])
+                pokemon.stats.sp_def.is_battle_only = (jsons[0][1][0]['is_battle_only'])
+                pokemon.stats.sp_atk.is_battle_only = (jsons[0][2][0]['is_battle_only'])
+                pokemon.stats.defense.is_battle_only = (jsons[0][3][0]['is_battle_only'])
+                pokemon.stats.attack.is_battle_only = (jsons[0][4][0]['is_battle_only'])
+                pokemon.stats.hp.is_battle_only = (jsons[0][5][0]['is_battle_only'])
+
+            i = 0
+            for pokemon in pokemonlist:
+                tempabilities = []
+                for ability in pokemon.abilities:
+                    tempurl = ability.url
+                    tempability = self.get_ability(jsons[1][i][0])
+                    tempability.url = tempurl
+                    tempabilities.append(tempability)
+                    i = i + 1
+                pokemon.abilities = tempabilities
+
+            i = 0
+            for pokemon in pokemonlist:
+                tempmoves = []
+                for move in pokemon.moves:
+                    templvl = move.level
+                    tempurl = move.url
+                    tempmove = self.get_move(jsons[2][i][0])
+                    tempmove.url = tempurl
+                    tempmove.level = templvl
+                    tempmoves.append(tempmove)
+                    i = i + 1
+                pokemon.moves = tempmoves
+
+            for pokemon in pokemonlist:
+                print(pokemon.expanded())
+
+        else:
+            if request.mode == 'pokemon':
+                for j in jsons:
+                    print(self.get_pokemon(j))
+            elif request.mode == 'ability':
+                for j in jsons:
+                    print(self.get_ability(j))
+            elif request.mode == 'move':
+                for j in jsons:
+                    print(self.get_move(j))
 
     def get_pokemon(self, json):
         """
@@ -112,6 +261,7 @@ class RequestHandler:
         :param json: Json request from pokeapi
         :return: Pokemon object with stats
         """
+
         pName = json["name"]
         pId = int(json["id"])
         tempList = []
@@ -119,7 +269,8 @@ class RequestHandler:
         weight = int(json["weight"])
         for data in json["stats"]:
             tempid = int((data['stat']['url']).split('/')[6])
-            temp = PokemonStat((data['stat']['name']), tempid, int((data['base_stat'])), (data['stat']['url']))
+            temp = PokemonStat((data['stat']['name']), tempid, int((data['base_stat'])))
+            temp.url = (data['stat']['url'])
             tempList.append(temp)
         stats = Stats(tempList[0], tempList[1], tempList[2], tempList[3], tempList[4], tempList[5])
         types = []
@@ -129,17 +280,17 @@ class RequestHandler:
         abilities = []
         for data in json["abilities"]:
             tempid = int((data['ability']['url']).split('/')[6])
-            temp = PokemonAbility((data['ability']['name']), tempid, (data['ability']['url']))
+            temp = PokemonAbility((data['ability']['name']), tempid)
+            temp.url = (data['ability']['url'])
             abilities.append(temp)
         moves = []
         for i in range(len(json["moves"])):
             name = json["moves"][i]["move"]["name"]
             level = int(json["moves"][i]["version_group_details"][0]["level_learned_at"])
-            url = json["moves"][i]["move"]["url"]
-            temp = PokemonMove(name, i + 1, level, url)
+            temp = PokemonMove(name, i + 1, level)
+            temp.url = json["moves"][i]["move"]["url"]
             moves.append(temp)
         return Pokemon(pName, pId, height, weight, stats, types, abilities, moves)
-
 
     def get_move(self, json):
         """
@@ -147,13 +298,16 @@ class RequestHandler:
         :param json: Json request from pokeapi
         :return: move object with stats
         """
+        effect = json["effect_entries"][0]["short_effect"]
+
+        if "$effect_chance" in effect:
+            effect = (effect.replace("$effect_chance", str(json['effect_chance'])))
 
         move = PokemonMove(json["name"], json["id"], 0, json["generation"]["name"],
                            json["accuracy"], json["pp"], json["power"],
                            json["type"]["name"], json["damage_class"]["name"],
-                           json["effect_entries"][0]["short_effect"])
+                           effect)
         return move
-
 
     def get_ability(self, json):
         """
@@ -173,16 +327,3 @@ class RequestHandler:
                                  json["effect_entries"][0]["short_effect"],
                                  templist)
         return ability
-
-
-    def get_expanded(self, json):
-        """
-            Returns the pokemon's expanded stats from the json request.
-        :param json: Json request from pokeapi
-        :return: nothing for now
-        """
-        # trying to do expanded
-        for data in json["stats"]:
-            name = (data['stat']['name'])
-            id = int(data['stat']['id'])
-            battle_only = (data['stat']['is_battle_only']).split('/')[6]

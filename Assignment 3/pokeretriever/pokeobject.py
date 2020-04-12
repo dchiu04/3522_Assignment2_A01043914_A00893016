@@ -21,7 +21,7 @@ class PokedexObject(ABC):
 
 class Pokemon(PokedexObject):
     """
-        Individual pokemon object with its own stats.
+        Pokemon object with its own stats.
     """
 
     def __init__(self, name, id, height, weight, stats, types, abilities, moves):
@@ -59,34 +59,126 @@ class Pokemon(PokedexObject):
 
     def expanded(self):
         """
-            Returns the expanded information of a pokemon
+            Returns the expanded, formatted, information of a pokemon, similar to __str__
         :return: String containing the expanded information
         """
 
-        # Requires additional formatting to make it look nice
+        # ************TYPE*************
         types = ""
         count = 1
         for type in self._types:
             types = types + "    Type " + str(count) + ": " + type.title() + "\n"
             count = count + 1
 
-        abilities = ""
-        count = 1
-        for ability in self._abilities:
-            abilities = abilities + "    Ability " + str(count) + ": " + ability._name.title() + "\n"
-            count = count + 1
-
+        # ****************MOVE**************
         moves = ""
         count = 1
         for move in self._moves:
-            moves = moves + "    Move " + str(count) + ": " + move._name.title() + " (Learned at level: " + str(
-                move.level) + ")\n"
+            moves = moves + "        Move " + str(count) + ": " + move.name.title() + " (Learned at level: " + str(move.level) + ")\n" \
+                "                Expanded Info:\n" \
+                "                        URL: " + move.url + "\n" \
+                "                        Name: " + move.name.title() + "\n" \
+                "                        Id: " + str(move.id) + "\n" \
+                "                        Generation: " + move.generation + "\n" \
+                "                        Accuracy: " + str(move.accuracy) + "\n" \
+                "                        PP: " + str(move.pp) + "\n" \
+                "                        Power: " + str(move.power) + "\n" \
+                "                        Type: " + move.type + "\n" \
+                "                        Damage Class: " + move.damage_class + "\n" \
+                "                        Effect (short): " + move.effect_short + "\n"
             count = count + 1
 
-        stats = "Stats:\n"
-        for stats in self._stats:
-                stats += "    " + stats + "Is_Battle_only: " + stats.is_battle_only + ","
+        # ********STATS*******
 
+        # Speed
+        stats = ""
+        stats += "        " + self.stats.speed.name.title() + ": " + str(self.stats.speed.base_value) + \
+            "\n                Expanded Info:\n" \
+            + "                        URL: " + self.stats.speed.url + "\n" \
+            + "                        Name: " + self.stats.speed.name.title() + "\n" \
+            + "                        Id: " + str(self.stats.speed.id) + "\n" \
+            + "                        Is Battle Only: " + str(self.stats.speed.is_battle_only) + "\n"
+
+        # Special Defence
+        stats += "        " + self.stats.sp_def.name.title() + ": " + str(self.stats.sp_def.base_value) + \
+            "\n                Expanded Info:\n" \
+            + "                        URL: " + self.stats.sp_def.url + "\n" \
+            + "                        Name: " + self.stats.sp_def.name.title() + "\n" \
+            + "                        Id: " + str(self.stats.sp_def.id) + "\n" \
+            + "                        Is Battle Only: " + str(self.stats.sp_def.is_battle_only) + "\n"
+
+        # Special Attack
+        stats += "        " + self.stats.sp_atk.name.title() + ": " + str(self.stats.sp_atk.base_value) + \
+            "\n                Expanded Info:\n" \
+            + "                        URL: " + self.stats.sp_atk.url + "\n" \
+            + "                        Name: " + self.stats.sp_atk.name.title() + "\n" \
+            + "                        Id: " + str(self.stats.sp_atk.id) + "\n" \
+            + "                        Is Battle Only: " + str(self.stats.sp_atk.is_battle_only) + "\n"
+
+        # Defense
+        stats += "        " + self.stats.defense.name.title() + ": " + str(self.stats.defense.base_value) +  \
+            "\n                Expanded Info:\n" \
+            + "                        URL: " + self.stats.defense.url + "\n" \
+            + "                        Name: " + self.stats.defense.name.title() + "\n" \
+            + "                        Id: " + str(self.stats.defense.id) + "\n" \
+            + "                        Is Battle Only: " + str(self.stats.defense.is_battle_only) + "\n"
+
+        # Attack
+        stats += "        " + self.stats.attack.name.title() + ": " + str(self.stats.attack.base_value) + \
+            "\n                Expanded Info:\n" \
+            + "                        URL: " + self.stats.attack.url + "\n" \
+            + "                        Name: " + self.stats.attack.name.title() + "\n" \
+            + "                        Id: " + str(self.stats.attack.id) + "\n" \
+            + "                        Is Battle Only: " + str(self.stats.attack.is_battle_only) + "\n"
+
+        # HP
+        stats += "        " + self.stats.hp.name.title() + ": " + str(self.stats.hp.base_value) + \
+            "\n                Expanded Info:\n" \
+            + "                        URL: " + self.stats.hp.url + "\n" \
+            + "                        Name: " + self.stats.hp.name.title() + "\n" \
+            + "                        Id: " + str(self.stats.hp.id) + "\n" \
+            + "                        Is Battle Only: " + str(self.stats.hp.is_battle_only) + "\n"
+
+        # ************ABILITY************
+        abilities = ""
+        count = 1
+        effects = ""
+
+        # Getting rid of original, weird formatting from api
+        for ability in self._abilities:
+            effects = ""
+            for eff in ability.effect:
+                if eff == "\n":
+                    continue
+                if eff == ".":
+                    effects += eff + " "
+                    continue
+                effects += eff
+
+        poke_count = 0
+        pokemon_str = ""
+
+        for ability in self._abilities:
+            for pokemon in ability.pokemon:
+                pokemon_str += "                                Pokemon " + str(
+                    poke_count) + ": " + pokemon.title() + "\n"
+                poke_count += 1
+
+            abilities = abilities + "        Ability " + str(count) + ": " + ability.name.title() + "\n" \
+                "                Expanded Info:\n                        (URL: " + ability.url + ")\n" \
+                "                        Name: " + ability.name.title() + "\n" \
+                "                        Id: " + str(ability.id) + "\n" \
+                "                        Generation: " + ability.generation + "\n" \
+                "                        Effect: " + effects + "\n" \
+                "                        Effect (short): " + ability.effect_short + "\n" \
+                + pokemon_str
+
+            # Resetting the pokemon string and count for the next pokemon in the list
+            pokemon_str = ""
+            poke_count = 0
+            count = count + 1
+
+        # Returns the string with expanded information on stats, abilities, and move
         return f"Name: {self._name.title()}\n" \
                f"Id: {self._id}\n" \
                f"Height: {self._height} decimeters\n" \
@@ -96,10 +188,9 @@ class Pokemon(PokedexObject):
                f"Ability(s):\n{abilities}" \
                f"Moves(s):\n{moves}"
 
+    def __str__(self):
 
-def __str__(self):
-
-        # Requires additional formatting to make it look nice
+        # Requires additional formatting
         types = ""
         count = 1
         for type in self._types:
@@ -300,6 +391,10 @@ class PokemonMove(PokedexObject):
     @property
     def level(self):
         return self._level
+
+    @level.setter
+    def level(self, value):
+        self._level = value
 
     @property
     def generation(self):
